@@ -1,0 +1,7 @@
+# vsim work.ramControl_tb -c -do "run -all; exit" 
+# Start time: 22:06:48 on Mar 31,2025
+# ** Error (suppressible): (vsim-19) Failed to access library 'work' at "work".
+# No such file or directory. (errno = ENOENT)
+# Error loading design
+# End time: 22:06:49 on Mar 31,2025, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0

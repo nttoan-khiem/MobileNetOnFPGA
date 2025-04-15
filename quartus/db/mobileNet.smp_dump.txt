@@ -1,0 +1,14 @@
+
+State Machine - |ramControl|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 

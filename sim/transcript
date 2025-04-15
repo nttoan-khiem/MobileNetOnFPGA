@@ -1,0 +1,153 @@
+# vsim work.writeBackControl 
+# Start time: 06:50:18 on Apr 14,2025
+# Loading work.writeBackControl
+add wave -position end  sim:/writeBackControl/i_clk
+add wave -position end  sim:/writeBackControl/i_reset
+add wave -position end  sim:/writeBackControl/i_sdramReady
+add wave -position end  sim:/writeBackControl/i_baseAddr0
+add wave -position end  sim:/writeBackControl/i_baseAddr1
+add wave -position end  sim:/writeBackControl/i_baseAddr2
+add wave -position end  sim:/writeBackControl/i_start
+add wave -position end  sim:/writeBackControl/o_addrToRam0
+add wave -position end  sim:/writeBackControl/o_addrToRam1
+add wave -position end  sim:/writeBackControl/o_addrToRam2
+add wave -position end  sim:/writeBackControl/o_quickRam
+add wave -position end  sim:/writeBackControl/o_addrToSdram
+add wave -position end  sim:/writeBackControl/o_wrSdram
+add wave -position end  sim:/writeBackControl/o_selData
+add wave -position end  sim:/writeBackControl/o_finish
+noforce sim:/writeBackControl/i_clk
+force -freeze sim:/writeBackControl/i_clk 1 0, 0 {50 ps} -r 100
+force -freeze sim:/writeBackControl/i_reset 0 0
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+force -freeze sim:/writeBackControl/i_baseAddr0 0 0
+force -freeze sim:/writeBackControl/i_baseAddr1 1111 0
+force -freeze sim:/writeBackControl/i_baseAddr2 111111 0
+force -freeze sim:/writeBackControl/i_start 0 0
+run
+run
+force -freeze sim:/writeBackControl/i_reset 1 0
+run
+force -freeze sim:/writeBackControl/i_start 1 0
+run
+
+
+add wave -position end  sim:/writeBackControl/state_q
+add wave -position end  sim:/writeBackControl/addrLocal_q
+run
+force -freeze sim:/writeBackControl/i_start 0 0
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+run
+run
+run
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 1 0
+run
+run
+force -freeze sim:/writeBackControl/i_sdramReady 0 0
+run
+# End time: 06:54:14 on Apr 14,2025, Elapsed time: 0:03:56
+# Errors: 0, Warnings: 0

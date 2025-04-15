@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Apr 01 02:30:42 2025
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : mobileNet
+Top-level Entity Name : ramControl
+Family : Cyclone IV E
+Total logic elements : 176
+    Total combinational functions : 77
+    Dedicated logic registers : 101
+Total registers : 101
+Total pins : 227
+Total virtual pins : 0
+Total memory bits : 40,960
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

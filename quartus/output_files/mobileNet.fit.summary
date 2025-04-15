@@ -1,0 +1,16 @@
+Fitter Status : Failed - Tue Apr 01 02:31:00 2025
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : mobileNet
+Top-level Entity Name : ramControl
+Family : Cyclone IV E
+Device : EP4CE22F17C6
+Timing Models : Final
+Total logic elements : 177 / 22,320 ( < 1 % )
+    Total combinational functions : 78 / 22,320 ( < 1 % )
+    Dedicated logic registers : 101 / 22,320 ( < 1 % )
+Total registers : 101
+Total pins : 227 / 154 ( 147 % )
+Total virtual pins : 0
+Total memory bits : 40,960 / 608,256 ( 7 % )
+Embedded Multiplier 9-bit elements : 0 / 132 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )
