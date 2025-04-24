@@ -1,14 +1,25 @@
 
-State Machine - |ramControl|state_q
-Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
-state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
-state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
-state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
-state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
-state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
-state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
-state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
-state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
-state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
-state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
-state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+State Machine - |masterControl|state_q
+Name state_q.update3 state_q.waitDoneAve state_q.average state_q.waitDoneFet3 state_q.fet3 state_q.update2 state_q.waitDoneWriteBack2 state_q.writeBack2 state_q.waitDoneConv1 state_q.convolution1 state_q.waitDoneFet2 state_q.fet2 state_q.update1 state_q.waitDoneWriteBack1 state_q.writeBack1 state_q.waitDoneConv0 state_q.convolution0 state_q.waitDoneFet1 state_q.fet1 state_q.waitDoneCam state_q.startCam state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state_q.startCam 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.waitDoneCam 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state_q.fet1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state_q.waitDoneFet1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state_q.convolution0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state_q.waitDoneConv0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state_q.writeBack1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state_q.waitDoneWriteBack1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state_q.update1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state_q.fet2 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state_q.waitDoneFet2 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state_q.convolution1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.waitDoneConv1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.writeBack2 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.waitDoneWriteBack2 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.update2 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.fet3 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.waitDoneFet3 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.average 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.waitDoneAve 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state_q.update3 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 

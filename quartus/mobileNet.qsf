@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE22F17C6
-set_global_assignment -name TOP_LEVEL_ENTITY ramControl
+set_global_assignment -name TOP_LEVEL_ENTITY masterControl
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "10:51:15  MARCH 25, 2025"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -49,6 +49,10 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VERILOG_FILE ../src/masterControl.v
+set_global_assignment -name VERILOG_FILE ../src/weightGen.v
+set_global_assignment -name VERILOG_FILE ../src/registerAverage.v
+set_global_assignment -name VERILOG_FILE ../src/fullyConnected.v
 set_global_assignment -name VERILOG_FILE ../src/ramControl.v
 set_global_assignment -name VERILOG_FILE ../src/spiMaster.v
 set_global_assignment -name VERILOG_FILE ../src/sdramController.v

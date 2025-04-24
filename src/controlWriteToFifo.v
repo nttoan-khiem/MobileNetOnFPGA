@@ -11,7 +11,7 @@ module controlWriteToFifo(
 
 localparam [1:0]    idle = 2'd0,
                     process = 2'd1,
-                    finish = 2'd3;
+                    finish = 2'd2;
 reg [1:0] state_q, state_d;
 reg masterE;
 
@@ -36,7 +36,7 @@ always @(*) begin     //combitional logic circuit control next state and output 
             o_process = 0;
         end
         process: begin 
-            if((i_xIndex == 10'd0) & (i_yIndex == 10'd64)) begin 
+            if((i_xIndex == 10'd64) & (i_yIndex == 10'd63)) begin 
                 state_d = finish;
             end else begin 
                 state_d = process;
@@ -61,7 +61,7 @@ always @(*) begin     //combitional logic circuit control next state and output 
 end
 
 always @(*) begin //combitional logic circuit control o_eWriteFifo signal.
-    if((i_xIndex < 10'd64) & (i_yIndex < 10'd64) & (masterE)) begin  //only allow write to fifo x < 64 and y < 64 and when sate machine 
+    if((i_xIndex <= 10'd64) & (i_yIndex < 10'd64) & (masterE)) begin  //only allow write to fifo x < 64 and y < 64 and when sate machine 
         o_eWriteFifo = 1;
     end else begin 
         o_eWriteFifo = 0;

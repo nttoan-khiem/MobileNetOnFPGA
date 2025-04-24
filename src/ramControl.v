@@ -1,5 +1,5 @@
 module ramControl(
-    input [108:0]       i_addrOut, //addr read data
+    input [107:0]       i_addrOut, //addr read data
     input [11:0]        i_addrIn,
     input [9:0]         i_data,     // Đầu vào dữ liệu
     input               i_wrEnable,

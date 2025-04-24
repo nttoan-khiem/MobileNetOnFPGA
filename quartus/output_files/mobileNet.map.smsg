@@ -1,2 +1,2 @@
-Warning (10268): Verilog HDL information at ramControl.v(155): always construct contains both blocking and non-blocking assignments File: C:/Users/ntkhi/Desktop/DATN/src/ramControl.v Line: 155
-Warning (10273): Verilog HDL warning at sdramController.v(72): extended using "x" or "z" File: C:/Users/ntkhi/Desktop/DATN/src/sdramController.v Line: 72
+Warning (10268): Verilog HDL information at fullyConnected.v(35): always construct contains both blocking and non-blocking assignments File: C:/Users/ntkhi/Desktop/DATN/Implement/src/fullyConnected.v Line: 35
+Warning (10273): Verilog HDL warning at sdramController.v(72): extended using "x" or "z" File: C:/Users/ntkhi/Desktop/DATN/Implement/src/sdramController.v Line: 72
