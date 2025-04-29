@@ -12,6 +12,7 @@ module masterControl(
     output reg o_startAve,
     output reg o_startWriteBack,
     output reg o_wrActiveCam,
+    output reg o_rdActiveConvolution,
     output reg o_opConv,
     output [5:0] o_opcode
 );
@@ -62,6 +63,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = 6'd0;
+            o_rdActiveConvolution = 0;
         end 
         startCam: begin 
             state_d = waitDoneCam;
@@ -73,6 +75,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneCam: begin 
             if(i_finish_cam) begin 
@@ -88,6 +91,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         fet1: begin 
             state_d = waitDoneFet1;
@@ -99,6 +103,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneFet1: begin 
             if(i_finish_fet) begin 
@@ -114,6 +119,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         convolution0: begin 
             state_d = waitDoneConv0;
@@ -125,6 +131,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneConv0: begin 
             if(i_finish_conv) begin 
@@ -140,6 +147,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         writeBack1: begin 
             state_d = waitDoneWriteBack1;
@@ -151,6 +159,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneWriteBack1: begin 
             if(i_finish_writeBack) begin 
@@ -166,6 +175,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         update1: begin 
             if(opcode_q == 6'd15) begin 
@@ -181,6 +191,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q + 6'd1;
+            o_rdActiveConvolution = 1;
         end
         fet2: begin 
             state_d = waitDoneFet2;
@@ -192,6 +203,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneFet2: begin 
             if(i_finish_fet) begin 
@@ -207,6 +219,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         convolution1: begin 
             state_d = waitDoneConv1;
@@ -218,6 +231,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneConv1: begin 
             if(i_finish_conv) begin 
@@ -233,6 +247,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         writeBack2: begin 
             state_d = waitDoneWriteBack2;
@@ -244,6 +259,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         waitDoneWriteBack2: begin 
             if(i_finish_writeBack) begin 
@@ -259,6 +275,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 1;
         end
         update2: begin 
             if(opcode_q == 6'd31) begin 
@@ -274,6 +291,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 1;
             opcode_d = opcode_q + 6'd1;
+            o_rdActiveConvolution = 1;
         end
         fet3: begin 
             state_d = waitDoneFet3;
@@ -285,6 +303,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 0;
         end
         waitDoneFet3: begin 
             if(i_finish_fet) begin 
@@ -300,6 +319,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 0;
         end
         average: begin 
             state_d = waitDoneAve;
@@ -311,6 +331,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 0;
         end 
         waitDoneAve: begin 
             if(i_finish_ave) begin 
@@ -326,6 +347,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q;
+            o_rdActiveConvolution = 0;
         end
         update3: begin 
             if(opcode_q == 6'd37) begin 
@@ -341,6 +363,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = opcode_q + 6'd1;
+            o_rdActiveConvolution = 0;
         end
         default: begin 
             state_d = idle;
@@ -352,6 +375,7 @@ always @(*) begin
             o_wrActiveCam = 0;
             o_opConv = 0;
             opcode_d = 6'd0;
+            o_rdActiveConvolution = 0;
         end
     endcase
 end
