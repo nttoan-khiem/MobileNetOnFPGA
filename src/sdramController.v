@@ -1,302 +1,417 @@
-// sdram_controller.v
-// Complete SDRAM Controller for DE0-nano (simplified)
-// Inputs: addr (24-bit), data_in (16-bit), rw (1: read, 0: write), start (command trigger)
-// Outputs: data_out (16-bit), busy, complete
-// SDRAM interface signals provided for a typical 16-bit SDRAM device.
-// Note: This is a simplified example. Adjust timing parameters and state machine details
-//       to meet your SDRAM device’s requirements.
+/**
+ * simple controller for ISSI IS42S16160G-7 SDRAM found in De0 Nano
+ *  16Mbit x 16 data bit bus (32 megabytes)
+ *  Default options
+ *    133Mhz
+ *    CAS 3
+ *
+ *  Very simple host interface
+ *     * No burst support
+ *     * haddr - address for reading and wriging 16 bits of data
+ *     * data_input - data for writing, latched in when wr_enable is highz0
+ *     * data_output - data for reading, comes available sometime
+ *       *few clocks* after rd_enable and address is presented on bus
+ *     * rst_n - start init ram process
+ *     * rd_enable - read enable, on clk posedge haddr will be latched in,
+ *       after *few clocks* data will be available on the data_output port
+ *     * wr_enable - write enable, on clk posedge haddr and data_input will
+ *       be latched in, after *few clocks* data will be written to sdram
+ *
+ * Theory
+ *  This simple host interface has a busy signal to tell you when you are
+ *  not able to issue commands.
+ */
 
 module sdram_controller (
-    input           clk,
-    input           rst,
-    // Command interface
-    input  [23:0]   addr,      // 24-bit address: [23:11] = row, [10:9] = bank, [8:0] = column
-    input  [15:0]   data_in,   // Data to write
-    input           rw,        // 1: read, 0: write
-    input           start,     // Command strobe (active high when new request is available)
-    output reg [15:0] data_out, // Data read from SDRAM
-    output reg      busy,      // High while operation in progress
-    output reg      complete,  // One-cycle pulse when operation completes
+    /* HOST INTERFACE */
+    wr_addr,
+    wr_data,
+    wr_enable,
 
-    // SDRAM interface signals
-    output reg [12:0] sdram_addr,
-    output reg [1:0]  sdram_ba,
-    output reg        sdram_cas_n,
-    output reg        sdram_ras_n,
-    output reg        sdram_we_n,
-    output reg        sdram_cke,
-    output reg        sdram_cs_n,
-    inout      [15:0] sdram_dq
+    rd_addr,
+    rd_data,
+    rd_ready,
+    rd_enable,
+
+    busy, rst_n, clk,
+
+    /* SDRAM SIDE */
+    addr, bank_addr, data, clock_enable, cs_n, ras_n, cas_n, we_n,
+    data_mask_low, data_mask_high
 );
 
-  //-------------------------------------------------------------------------
-  // Parameters and State Definitions
-  //-------------------------------------------------------------------------
-  // Initialization timing parameters (in clock cycles) – adjust per your SDRAM datasheet
-  localparam DELAY_POWERUP   = 1000;
-  localparam DELAY_PRECHARGE = 50;
-  localparam DELAY_REFRESH   = 50;
-  localparam DELAY_LOAD_MODE = 50;
+/* Internal Parameters */
+parameter ROW_WIDTH = 13;
+parameter COL_WIDTH = 9;
+parameter BANK_WIDTH = 2;
 
-  // Operational timing parameters
-  localparam tRCD = 3;  // Activate-to-read/write delay
-  localparam tCL  = 3;  // CAS latency (for read)
+parameter SDRADDR_WIDTH = ROW_WIDTH > COL_WIDTH ? ROW_WIDTH : COL_WIDTH;
+parameter HADDR_WIDTH = BANK_WIDTH + ROW_WIDTH + COL_WIDTH;
 
-  // State encoding
-  localparam STATE_INIT         = 4'd0;
-  localparam STATE_INIT_PRECH   = 4'd1;
-  localparam STATE_INIT_REF1    = 4'd2;
-  localparam STATE_INIT_REF2    = 4'd3;
-  localparam STATE_INIT_LMR     = 4'd4;
-  localparam STATE_IDLE         = 4'd5;
-  localparam STATE_ACTIVATE     = 4'd6;
-  localparam STATE_TRCD         = 4'd7;
-  localparam STATE_READ_CMD     = 4'd8;
-  localparam STATE_READ_WAIT    = 4'd9;
-  localparam STATE_READ_DONE    = 4'd10;
-  localparam STATE_WRITE_CMD    = 4'd11;
-  localparam STATE_WRITE_WAIT   = 4'd12;
-  localparam STATE_WRITE_DONE   = 4'd13;
+parameter CLK_FREQUENCY = 133;  // Mhz
+parameter REFRESH_TIME =  32;   // ms     (how often we need to refresh)
+parameter REFRESH_COUNT = 8192; // cycles (how many refreshes required per refresh time)
 
-  reg [3:0] state;
-  reg [15:0] delay_cnt;
+// clk / refresh =  clk / sec
+//                , sec / refbatch
+//                , ref / refbatch
+localparam CYCLES_BETWEEN_REFRESH = ( CLK_FREQUENCY
+                                      * 1_000
+                                      * REFRESH_TIME
+                                    ) / REFRESH_COUNT;
 
-  // Latching the command parameters once a new command is detected
-  reg [23:0] cmd_addr;
-  reg [15:0] cmd_data;
-  reg        cmd_rw;  // 1 = read, 0 = write
+// STATES - State
+localparam IDLE      = 5'b00000;
 
-  // Internal flag to drive the bidirectional data bus during write operations.
-  reg drive_data;
-  // Tri-state control for sdram_dq: drive data during write states; otherwise, high impedance.
-  assign sdram_dq = (drive_data) ? data_in : 16'bz;
+localparam INIT_NOP1 = 5'b01000,
+           INIT_PRE1 = 5'b01001,
+           INIT_NOP1_1=5'b00101,
+           INIT_REF1 = 5'b01010,
+           INIT_NOP2 = 5'b01011,
+           INIT_REF2 = 5'b01100,
+           INIT_NOP3 = 5'b01101,
+           INIT_LOAD = 5'b01110,
+           INIT_NOP4 = 5'b01111;
 
-  // Extract row, bank, and column from command address.
-  // For this example, assume:
-  //   row  : bits [23:11] (13 bits)
-  //   bank : bits [10:9]  (2 bits)
-  //   col  : bits [8:0]   (9 bits)
-  wire [12:0] row_addr  = cmd_addr[23:11];
-  wire [1:0]  bank_addr = cmd_addr[10:9];
-  wire [8:0]  col_addr  = cmd_addr[8:0];
+localparam REF_PRE  =  5'b00001,
+           REF_NOP1 =  5'b00010,
+           REF_REF  =  5'b00011,
+           REF_NOP2 =  5'b00100;
 
-  //-------------------------------------------------------------------------
-  // Main State Machine
-  //-------------------------------------------------------------------------
-  always @(posedge clk or posedge rst) begin
-    if (rst) begin
-      // Reset state: initialize SDRAM control signals and internal registers.
-      state        <= STATE_INIT;
-      delay_cnt    <= 16'd0;
-      busy         <= 1'b1;
-      complete     <= 1'b0;
-      drive_data   <= 1'b0;
-      // SDRAM control defaults (inactive commands)
-      sdram_cke    <= 1'b0;
-      sdram_cs_n   <= 1'b1;
-      sdram_ras_n  <= 1'b1;
-      sdram_cas_n  <= 1'b1;
-      sdram_we_n   <= 1'b1;
-      sdram_addr   <= 13'd0;
-      sdram_ba     <= 2'd0;
-      data_out     <= 16'd0;
-    end else begin
-      case (state)
-        //======================================================================
-        // Initialization Sequence
-        //======================================================================
-        STATE_INIT: begin
-          // Enable clock and wait for power-up stabilization.
-          sdram_cke   <= 1'b1;
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b1;
-          sdram_cas_n <= 1'b1;
-          sdram_we_n  <= 1'b1;
-          if (delay_cnt < DELAY_POWERUP)
-            delay_cnt <= delay_cnt + 1;
-          else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_INIT_PRECH;
-          end
-        end
+localparam READ_ACT  = 5'b10000,
+           READ_NOP1 = 5'b10001,
+           READ_CAS  = 5'b10010,
+           READ_NOP2 = 5'b10011,
+           READ_READ = 5'b10100;
 
-        // Precharge all banks
-        STATE_INIT_PRECH: begin
-          // Issue PRECHARGE ALL command: CS=0, RAS=0, CAS=1, WE=0.
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b0;
-          sdram_cas_n <= 1'b1;
-          sdram_we_n  <= 1'b0;
-          // Set A10 high to precharge all banks.
-          sdram_addr[10] <= 1'b1;
-          if (delay_cnt < DELAY_PRECHARGE)
-            delay_cnt <= delay_cnt + 1;
-          else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_INIT_REF1;
-          end
-        end
+localparam WRIT_ACT  = 5'b11000,
+           WRIT_NOP1 = 5'b11001,
+           WRIT_CAS  = 5'b11010,
+           WRIT_NOP2 = 5'b11011;
 
-        // First auto-refresh command
-        STATE_INIT_REF1: begin
-          // Issue AUTO-REFRESH: CS=0, RAS=0, CAS=0, WE=1.
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b0;
-          sdram_cas_n <= 1'b0;
-          sdram_we_n  <= 1'b1;
-          if (delay_cnt < DELAY_REFRESH)
-            delay_cnt <= delay_cnt + 1;
-          else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_INIT_REF2;
-          end
-        end
+// Commands              CCRCWBBA
+//                       ESSSE100
+localparam CMD_PALL = 8'b10010001,
+           CMD_REF  = 8'b10001000,
+           CMD_NOP  = 8'b10111000,
+           CMD_MRS  = 8'b1000000x,
+           CMD_BACT = 8'b10011xxx,
+           CMD_READ = 8'b10101xx1,
+           CMD_WRIT = 8'b10100xx1;
 
-        // Second auto-refresh command
-        STATE_INIT_REF2: begin
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b0;
-          sdram_cas_n <= 1'b0;
-          sdram_we_n  <= 1'b1;
-          if (delay_cnt < DELAY_REFRESH)
-            delay_cnt <= delay_cnt + 1;
-          else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_INIT_LMR;
-          end
-        end
+/* Interface Definition */
+/* HOST INTERFACE */
+input  [HADDR_WIDTH-1:0]   wr_addr;
+input  [15:0]              wr_data;
+input                      wr_enable;
 
-        // Load Mode Register
-        STATE_INIT_LMR: begin
-          // Issue LOAD MODE REGISTER: CS=0, RAS=0, CAS=0, WE=0.
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b0;
-          sdram_cas_n <= 1'b0;
-          sdram_we_n  <= 1'b0;
-          // For example, load a mode register value.
-          // (This value must be set per your SDRAM datasheet.)
-          sdram_addr  <= 13'b0000_0100_0011;
-          if (delay_cnt < DELAY_LOAD_MODE)
-            delay_cnt <= delay_cnt + 1;
-          else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_IDLE;
-            busy  <= 1'b0;  // Now ready for commands.
-          end
-        end
+input  [HADDR_WIDTH-1:0]   rd_addr;
+output [15:0]              rd_data;
+input                      rd_enable;
+output                     rd_ready;
 
-        //======================================================================
-        // Idle: Wait for a new command request
-        //======================================================================
-        STATE_IDLE: begin
-          // Drive no command (NOP)
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b1;
-          sdram_cas_n <= 1'b1;
-          sdram_we_n  <= 1'b1;
-          drive_data  <= 1'b0;
-          complete    <= 1'b0;
-          busy        <= 1'b0;
-          // Latch command when external 'start' is asserted.
-          if (start) begin
-            cmd_addr <= addr;
-            cmd_data <= data_in;
-            cmd_rw   <= rw;
-            busy     <= 1'b1;
-            state    <= STATE_ACTIVATE;
-            delay_cnt<= 16'd0;
-          end
-        end
+output                     busy;
+input                      rst_n;
+input                      clk;
 
-        //======================================================================
-        // ACTIVATE: Open the row corresponding to the command address.
-        //======================================================================
-        STATE_ACTIVATE: begin
-          // Issue ACTIVE command: CS=0, RAS=0, CAS=1, WE=1.
-          // Provide the row address.
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b0;
-          sdram_cas_n <= 1'b1;
-          sdram_we_n  <= 1'b1;
-          sdram_addr  <= row_addr;
-          sdram_ba    <= bank_addr;
-          if (delay_cnt < tRCD) begin
-            delay_cnt <= delay_cnt + 1;
-          end else begin
-            delay_cnt <= 16'd0;
-            // Move to the appropriate command state based on read or write.
-            if (cmd_rw) begin
-              state <= STATE_READ_CMD;
-            end else begin
-              state <= STATE_WRITE_CMD;
-            end
-          end
-        end
+/* SDRAM SIDE */
+output [SDRADDR_WIDTH-1:0] addr;
+output [BANK_WIDTH-1:0]    bank_addr;
+inout  [15:0]              data;
+output                     clock_enable;
+output                     cs_n;
+output                     ras_n;
+output                     cas_n;
+output                     we_n;
+output                     data_mask_low;
+output                     data_mask_high;
 
-        //======================================================================
-        // READ Operation Sequence
-        //======================================================================
-        STATE_READ_CMD: begin
-          // Issue READ command:
-          // Command: CS=0, RAS=1, CAS=0, WE=1.
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b1;
-          sdram_cas_n <= 1'b0;
-          sdram_we_n  <= 1'b1;
-          // Provide the column address.
-          // Note: Some SDRAM parts require auto-precharge bits; here we ignore that.
-          sdram_addr[8:0] <= col_addr;
-          if (delay_cnt < tCL) begin
-            delay_cnt <= delay_cnt + 1;
-          end else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_READ_DONE;
-          end
-        end
+/* I/O Registers */
 
-        STATE_READ_DONE: begin
-          // Latch the data from the SDRAM data bus.
-          data_out <= sdram_dq;
-          complete <= 1'b1;  // Indicate read complete (one-cycle pulse)
-          state    <= STATE_IDLE;
-        end
+reg  [HADDR_WIDTH-1:0]   haddr_r;
+reg  [15:0]              wr_data_r;
+reg  [15:0]              rd_data_r;
+reg                      busy;
+reg                      data_mask_low_r;
+reg                      data_mask_high_r;
+reg [SDRADDR_WIDTH-1:0]  addr_r;
+reg [BANK_WIDTH-1:0]     bank_addr_r;
+reg                      rd_ready_r;
 
-        //======================================================================
-        // WRITE Operation Sequence
-        //======================================================================
-        STATE_WRITE_CMD: begin
-          // Issue WRITE command:
-          // Command: CS=0, RAS=1, CAS=1, WE=0.
-          sdram_cs_n  <= 1'b0;
-          sdram_ras_n <= 1'b1;
-          sdram_cas_n <= 1'b1;
-          sdram_we_n  <= 1'b0;
-          sdram_addr[8:0] <= col_addr;
-          // Drive the data bus.
-          drive_data <= 1'b1;
-          state      <= STATE_WRITE_WAIT;
-          delay_cnt  <= 16'd0;
-        end
+wire [15:0]              data_output;
+wire                     data_mask_low, data_mask_high;
 
-        STATE_WRITE_WAIT: begin
-          // Wait a cycle (or more if required) for the write to be registered.
-          if (delay_cnt < 1) begin
-            delay_cnt <= delay_cnt + 1;
-          end else begin
-            delay_cnt <= 16'd0;
-            state <= STATE_WRITE_DONE;
-          end
-        end
+assign data_mask_high = data_mask_high_r;
+assign data_mask_low  = data_mask_low_r;
+assign rd_data        = rd_data_r;
 
-        STATE_WRITE_DONE: begin
-          drive_data <= 1'b0;  // Stop driving the bus.
-          complete  <= 1'b1;   // Indicate write complete.
-          state     <= STATE_IDLE;
-        end
+/* Internal Wiring */
+reg [3:0] state_cnt;
+reg [9:0] refresh_cnt;
 
-        default: state <= STATE_IDLE;
-      endcase
+reg [7:0] command;
+reg [4:0] state;
+
+// TODO output addr[6:4] when programming mode register
+
+reg [7:0] command_nxt;
+reg [3:0] state_cnt_nxt;
+reg [4:0] next;
+
+assign {clock_enable, cs_n, ras_n, cas_n, we_n} = command[7:3];
+// state[4] will be set if mode is read/write
+assign bank_addr      = (state[4]) ? bank_addr_r : command[2:1];
+assign addr           = (state[4] | state == INIT_LOAD) ? addr_r : { {SDRADDR_WIDTH-11{1'b0}}, command[0], 10'd0 };
+
+assign data = (state == WRIT_CAS) ? wr_data_r : 16'bz;
+assign rd_ready = rd_ready_r;
+
+// HOST INTERFACE
+// all registered on posedge
+always @ (posedge clk)
+  if (~rst_n)
+    begin
+    state <= INIT_NOP1;
+    command <= CMD_NOP;
+    state_cnt <= 4'hf;
+
+    haddr_r <= {HADDR_WIDTH{1'b0}};
+    wr_data_r <= 16'b0;
+    rd_data_r <= 16'b0;
+    busy <= 1'b0;
     end
-  end
+  else
+    begin
+
+    state <= next;
+    command <= command_nxt;
+
+    if (!state_cnt)
+      state_cnt <= state_cnt_nxt;
+    else
+      state_cnt <= state_cnt - 1'b1;
+
+    if (wr_enable)
+      wr_data_r <= wr_data;
+
+    if (state == READ_READ)
+      begin
+      rd_data_r <= data;
+      rd_ready_r <= 1'b1;
+      end
+    else
+      rd_ready_r <= 1'b0;
+
+    busy <= state[4];
+
+    if (rd_enable)
+      haddr_r <= rd_addr;
+    else if (wr_enable)
+      haddr_r <= wr_addr;
+
+    end
+
+// Handle refresh counter
+always @ (posedge clk)
+ if (~rst_n)
+   refresh_cnt <= 10'b0;
+ else
+   if (state == REF_NOP2)
+     refresh_cnt <= 10'b0;
+   else
+     refresh_cnt <= refresh_cnt + 1'b1;
+
+
+/* Handle logic for sending addresses to SDRAM based on current state*/
+always @*
+begin
+    if (state[4])
+      {data_mask_low_r, data_mask_high_r} = 2'b00;
+    else
+      {data_mask_low_r, data_mask_high_r} = 2'b11;
+
+   bank_addr_r = 2'b00;
+   addr_r = {SDRADDR_WIDTH{1'b0}};
+
+   if (state == READ_ACT | state == WRIT_ACT)
+     begin
+     bank_addr_r = haddr_r[HADDR_WIDTH-1:HADDR_WIDTH-(BANK_WIDTH)];
+     addr_r = haddr_r[HADDR_WIDTH-(BANK_WIDTH+1):HADDR_WIDTH-(BANK_WIDTH+ROW_WIDTH)];
+     end
+   else if (state == READ_CAS | state == WRIT_CAS)
+     begin
+     // Send Column Address
+     // Set bank to bank to precharge
+     bank_addr_r = haddr_r[HADDR_WIDTH-1:HADDR_WIDTH-(BANK_WIDTH)];
+
+     // Examples for math
+     //               BANK  ROW    COL
+     // HADDR_WIDTH   2 +   13 +   9   = 24
+     // SDRADDR_WIDTH 13
+
+     // Set CAS address to:
+     //   0s,
+     //   1 (A10 is always for auto precharge),
+     //   0s,
+     //   column address
+     addr_r = {
+               {SDRADDR_WIDTH-(11){1'b0}},
+               1'b1,                       /* A10 */
+               {10-COL_WIDTH{1'b0}},
+               haddr_r[COL_WIDTH-1:0]
+              };
+     end
+   else if (state == INIT_LOAD)
+     begin
+     // Program mode register during load cycle
+     //                                       B  C  SB
+     //                                       R  A  EUR
+     //                                       S  S-3Q ST
+     //                                       T  654L210
+     addr_r = {{SDRADDR_WIDTH-10{1'b0}}, 10'b1000110000};
+     end
+end
+
+// Next state logic
+always @*
+begin
+   state_cnt_nxt = 4'd0;
+   command_nxt = CMD_NOP;
+   if (state == IDLE)
+        // Monitor for refresh or hold
+        if (refresh_cnt >= CYCLES_BETWEEN_REFRESH)
+          begin
+          next = REF_PRE;
+          command_nxt = CMD_PALL;
+          end
+        else if (rd_enable)
+          begin
+          next = READ_ACT;
+          command_nxt = CMD_BACT;
+          end
+        else if (wr_enable)
+          begin
+          next = WRIT_ACT;
+          command_nxt = CMD_BACT;
+          end
+        else
+          begin
+          // HOLD
+          next = IDLE;
+          end
+    else
+      if (!state_cnt)
+        case (state)
+          // INIT ENGINE
+          INIT_NOP1:
+            begin
+            next = INIT_PRE1;
+            command_nxt = CMD_PALL;
+            end
+          INIT_PRE1:
+            begin
+            next = INIT_NOP1_1;
+            end
+          INIT_NOP1_1:
+            begin
+            next = INIT_REF1;
+            command_nxt = CMD_REF;
+            end
+          INIT_REF1:
+            begin
+            next = INIT_NOP2;
+            state_cnt_nxt = 4'd7;
+            end
+          INIT_NOP2:
+            begin
+            next = INIT_REF2;
+            command_nxt = CMD_REF;
+            end
+          INIT_REF2:
+            begin
+            next = INIT_NOP3;
+            state_cnt_nxt = 4'd7;
+            end
+          INIT_NOP3:
+            begin
+            next = INIT_LOAD;
+            command_nxt = CMD_MRS;
+            end
+          INIT_LOAD:
+            begin
+            next = INIT_NOP4;
+            state_cnt_nxt = 4'd1;
+            end
+          // INIT_NOP4: default - IDLE
+
+          // REFRESH
+          REF_PRE:
+            begin
+            next = REF_NOP1;
+            end
+          REF_NOP1:
+            begin
+            next = REF_REF;
+            command_nxt = CMD_REF;
+            end
+          REF_REF:
+            begin
+            next = REF_NOP2;
+            state_cnt_nxt = 4'd7;
+            end
+          // REF_NOP2: default - IDLE
+
+          // WRITE
+          WRIT_ACT:
+            begin
+            next = WRIT_NOP1;
+            state_cnt_nxt = 4'd1;
+            end
+          WRIT_NOP1:
+            begin
+            next = WRIT_CAS;
+            command_nxt = CMD_WRIT;
+            end
+          WRIT_CAS:
+            begin
+            next = WRIT_NOP2;
+            state_cnt_nxt = 4'd1;
+            end
+          // WRIT_NOP2: default - IDLE
+
+          // READ
+          READ_ACT:
+            begin
+            next = READ_NOP1;
+            state_cnt_nxt = 4'd1;
+            end
+          READ_NOP1:
+            begin
+            next = READ_CAS;
+            command_nxt = CMD_READ;
+            end
+          READ_CAS:
+            begin
+            next = READ_NOP2;
+            state_cnt_nxt = 4'd1;
+            end
+          READ_NOP2:
+            begin
+            next = READ_READ;
+            end
+          // READ_READ: default - IDLE
+
+          default:
+            begin
+            next = IDLE;
+            end
+          endcase
+      else
+        begin
+        // Counter Not Reached - HOLD
+        next = state;
+        command_nxt = command;
+        end
+end
 
 endmodule

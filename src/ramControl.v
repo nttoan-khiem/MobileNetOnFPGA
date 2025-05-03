@@ -9,7 +9,7 @@ module ramControl(
     input               i_reset,
     input               i_start,
     output reg [89:0]   o_data,     // Đầu ra dữ liệu
-    output [9:0]    o_quickData,
+    output [9:0]        o_quickData,
     output reg          o_valid,
     output reg          o_ready
 );
