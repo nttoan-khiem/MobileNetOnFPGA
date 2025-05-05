@@ -22,7 +22,7 @@ module cameraRead(
     assign o_pixelClk = i_pclk;
 
     // Main process: driven by the rising edge of i_pclk
-    always @(posedge i_pclk or i_reset) begin
+    always @(posedge i_pclk or negedge i_reset) begin
         if (!i_reset) begin
             // Reset all signals
             o_pixelOut   <= 16'd0;
@@ -52,7 +52,7 @@ module cameraRead(
                     // Now the pixel is complete – signal that the pixel is ready
                     o_pixelValid <= 1'b1;
                     // Increment the horizontal index after a full pixel is captured
-                    o_xIndex <= o_xIndex + 1;
+                    o_xIndex <= o_xIndex + 10'd1;
                     // Reset state for next pixel
                     byte_state <= 1'b0;
                 end
@@ -67,7 +67,7 @@ module cameraRead(
                 // Update the vertical index and reset horizontal index.
                 if (o_xIndex != 0) begin
                     o_xIndex <= 10'd0;
-                    o_yIndex <= o_yIndex + 1;
+                    o_yIndex <= o_yIndex + 10'd1;
                 end
             end
         end

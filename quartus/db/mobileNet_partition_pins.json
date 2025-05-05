@@ -4,55 +4,143 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "o_startCam",
+					"name" : "o_camRes",
 					"strict" : false
 				},
 				{
-					"name" : "o_startFet",
+					"name" : "o_camSioc",
 					"strict" : false
 				},
 				{
-					"name" : "o_startConvolution",
+					"name" : "o_camSiod",
 					"strict" : false
 				},
 				{
-					"name" : "o_startAve",
+					"name" : "sdram_addr[0]",
 					"strict" : false
 				},
 				{
-					"name" : "o_startWriteBack",
+					"name" : "sdram_addr[1]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opConv",
+					"name" : "sdram_addr[2]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opcode[0]",
+					"name" : "sdram_addr[3]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opcode[1]",
+					"name" : "sdram_addr[4]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opcode[2]",
+					"name" : "sdram_addr[5]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opcode[3]",
+					"name" : "sdram_addr[6]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opcode[4]",
+					"name" : "sdram_addr[7]",
 					"strict" : false
 				},
 				{
-					"name" : "o_opcode[5]",
+					"name" : "sdram_addr[8]",
 					"strict" : false
 				},
 				{
-					"name" : "i_clk",
+					"name" : "sdram_addr[9]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_addr[10]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_cas_n",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_ras_n",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_we_n",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[0]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[1]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[2]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[3]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[4]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[5]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[6]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[7]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[8]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[9]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[10]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[11]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[12]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[13]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[14]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_dq[15]",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_maskLow",
+					"strict" : false
+				},
+				{
+					"name" : "sdram_maskHigh",
 					"strict" : false
 				},
 				{
@@ -60,23 +148,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "i_finish_cam",
+					"name" : "i_pclk",
 					"strict" : false
 				},
 				{
-					"name" : "i_finish_fet",
+					"name" : "i_vsync",
 					"strict" : false
 				},
 				{
-					"name" : "i_finish_conv",
-					"strict" : false
-				},
-				{
-					"name" : "i_finish_writeBack",
-					"strict" : false
-				},
-				{
-					"name" : "i_finish_ave",
+					"name" : "i_href",
 					"strict" : false
 				}
 			]

@@ -8,6 +8,10 @@ module top(
     input [7:0] i_data,
     input i_reset,
     output o_clkCam,
+    output o_camRes,
+    output o_camPowerDown,
+    output o_camSioc,
+    output o_camSiod,
     //-----------------------------
     output [12:0]   sdram_addr,
     output [1:0]    sdram_ba,
@@ -23,7 +27,29 @@ module top(
     //-----------------------------
     output led
 );
-
+//-------------------Pll conponent---------------
+wire i_clk100, i_clk24;
+mypll PllBlock(
+    .areset(~i_reset),
+    .inclk0(i_clk50),
+    .c0(i_clk24),
+    .c1(i_clk100)
+);
+//----------------Config camera------------------
+wire startConfigCam;
+cameraStartConfig controlStartConfigCameraBlock(
+    .i_clk(i_clk24),
+    .i_reset(i_reset),
+    .o_startConf(startConfigCam)
+);
+camera_configure #(.CLK_FREQ ( 24000000 )) camera_configure_0
+(
+	.clk   (i_clk24),	
+	.start (startConfigCam),
+	.sioc  (o_camSioc),
+	.siod  (o_camSiod),
+	.done  () //dont need to use
+);
 //--------------------read-cam-------------------
 wire [15:0] dataPixelFromCam;
 wire sdramBusy;
@@ -45,6 +71,9 @@ wire enableWrSdram;
 wire flagFinish_StCam;
 wire sdramReady;
 wire startStCam;
+assign o_clkCam = i_clk24; //supply clock for camera 24Mhz
+assign o_camRes = i_reset;  //reset pin camera /active low
+assign o_camPowerDown = 1'd0; //disable power down mode
 cameraRead cameraReadBlock(
     .i_pclk(i_pclk),
     .i_vsync(i_vsync),
@@ -125,7 +154,7 @@ dataSteamingSdramWrite dataStreamingWriteSdram(
     .o_enableWrite(enableWriteSdram)
 );
 sdram_controller sdramControlBlock(
-    .wr_addr(addrWrireToSdram24),
+    .wr_addr(addrWriteToSdram24),
     .wr_data(dataWriteToSdram),
     .wr_enable(enableWriteSdram),
     .rd_addr(addrReadToSdram24),
@@ -343,22 +372,23 @@ weightGen weightGennerationBlock(
 );
 //------------------------Average Control--------------------------
 wire enableWriteAdd;
+wire startAve;
 wire resetValueAve;
 wire maskAve;
 wire flagFinish_Average;
 averageControl averageControlBlock(
-    input           .i_clk(i_clk100),
-    input           .i_reset(i_reset),
-    input           .i_start(startAve),
-    input           .i_validRam(dataForConvFromSourceRamValid),
-    output [107:0]  .o_addrRead0(addrReadDataForAveFromSourceRam0),
-    output [107:0]  .o_addrRead1(addrReadDataForAveFromSourceRam1),
-    output [107:0]  .o_addrRead2(addrReadDataForAveFromSourceRam2),
-    output reg      .o_writeEnable(enableWriteAdd),
-    output reg      .o_resetAverage(resetValueAve),
-    output reg      .o_mask(maskAve),
-    output reg      .o_startRam(startReadSourceFromAve),
-    output reg      .o_finish(flagFinish_Average)
+    .i_clk(i_clk100),
+    .i_reset(i_reset),
+    .i_start(startAve),
+    .i_validRam(dataForConvFromSourceRamValid),
+    .o_addrRead0(addrReadDataForAveFromSourceRam0),
+    .o_addrRead1(addrReadDataForAveFromSourceRam1),
+    .o_addrRead2(addrReadDataForAveFromSourceRam2),
+    .o_writeEnable(enableWriteAdd),
+    .o_resetAverage(resetValueAve),
+    .o_mask(maskAve),
+    .o_startRam(startReadSourceFromAve),
+    .o_finish(flagFinish_Average)
 );
 //----------------------Average-------------------
 wire [89:0] dataToAve0, dataToAve1, dataToAve2;
@@ -493,21 +523,21 @@ baseAddrWriteBackDecode writeBackDecodeAddrBlock(
     .o_baseAddr2(baseAddrWriteBack2)
 );
 writeBackControl writeBackControlBlock(
-    input               .i_clk(i_clk100),
-    input               .i_reset(i_reset),
-    input               .i_sdramReady(sdramReady),
-    input [18:0]        .i_baseAddr0(baseAddrWriteBack0),
-    input [18:0]        .i_baseAddr1(baseAddrWriteBack1),
-    input [18:0]        .i_baseAddr2(baseAddrWriteBack2),
-    input               .i_start(startWriteBack),
-    output [18:0]       .o_addrToRam0(quickModeAddr0),
-    output [18:0]       .o_addrToRam1(quickModeAddr1),
-    output [18:0]       .o_addrToRam2(quickModeAddr2),
-    output reg          .o_quickRam(quickModeEnable),
-    output reg [18:0]   .o_addrToSdram(addrFromWriteBackToSdram),
-    output reg          .o_wrSdram(enableWrSdramFromWriteback),
-    output reg [1:0]    .o_selData(selDataForWriteBack),
-    output reg          .o_finish(flagFinish_WriteBack)
+    .i_clk(i_clk100),
+    .i_reset(i_reset),
+    .i_sdramReady(sdramReady),
+    .i_baseAddr0(baseAddrWriteBack0),
+    .i_baseAddr1(baseAddrWriteBack1),
+    .i_baseAddr2(baseAddrWriteBack2),
+    .i_start(startWriteBack),
+    .o_addrToRam0(quickModeAddr0),
+    .o_addrToRam1(quickModeAddr1),
+    .o_addrToRam2(quickModeAddr2),
+    .o_quickRam(quickModeEnable),
+    .o_addrToSdram(addrFromWriteBackToSdram),
+    .o_wrSdram(enableWrSdramFromWriteback),
+    .o_selData(selDataForWriteBack),
+    .o_finish(flagFinish_WriteBack)
 );
 selDataForWriteBack selDataForWriteBackBlock(
     .i_sel(selDataForWriteBack),
@@ -524,11 +554,11 @@ masterControl masterControlBlock(
     .i_finish_fet(flagFinish_Fet),
     .i_finish_conv(flagFinish_Conv),
     .i_finish_writeBack(flagFinish_WriteBack),
-    .i_finish_ave(),
+    .i_finish_ave(flagFinish_Average),
     .o_startCam(startStCam),
     .o_startFet(startFeching), 
     .o_startConvolution(startConvolution),
-    .o_startAve(),
+    .o_startAve(startAve),
     .o_startWriteBack(startWriteBack),
     .o_wrActiveCam(wrActiveCam),
     .o_rdActiveConvolution(rdActiveConvolution),

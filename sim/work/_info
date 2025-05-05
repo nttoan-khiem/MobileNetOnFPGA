@@ -9,245 +9,223 @@ z2
 cModel Technology
 Z0 dC:/Users/ntkhi/Desktop/DATN/sim
 vaverage
-!s110 1743415042
+Z1 !s110 1746443155
 !i10b 1
-!s100 XbPAUDo94kZAfRB:f4P]=3
-IJ;8Y[81>Ci]dIOeFGE4K@0
-Z1 VDg1SIo80bB@j0V0VzS_@n1
-R0
-w1742738476
+!s100 29@=52FVePV:Wh]CF>Q0X2
+ILeEBP6VzEW`SkT6I1B<cc0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dC:/Users/ntkhi/Desktop/DATN/Implement/sim
+w1746442162
 8..\src\average.v
 F..\src\average.v
 L0 1
-Z2 OV;L;10.5b;63
+Z4 OV;L;10.5b;63
 r1
 !s85 0
 31
-!s108 1743415041.000000
-!s107 ..\src\ramControl.v|..\src\ramConv.v|..\src\plus9Para.v|..\src\mux2to1.v|..\src\multi.v|..\src\coreConv.v|..\src\conv.v|..\src\average.v|.\ramControl_tb.v|
-!s90 .\ramControl_tb.v|..\src\average.v|..\src\conv.v|..\src\coreConv.v|..\src\multi.v|..\src\mux2to1.v|..\src\plus9Para.v|..\src\ramConv.v|..\src\ramControl.v|
+Z5 !s108 1746443155.000000
+Z6 !s107 ..\src\average.v|.\average_tb.v|
+Z7 !s90 .\average_tb.v|..\src\average.v|
 !i113 1
-Z3 tCvgOpt 0
+Z8 tCvgOpt 0
+vaverage_tb
+R1
+!i10b 1
+!s100 N0k2[92XNHmK>VY;>V3;c1
+IcKaKFNnz@97BG=mVIRSYD3
+R2
+R3
+w1746443153
+8.\average_tb.v
+F.\average_tb.v
+L0 2
+R4
+r1
+!s85 0
+31
+R5
+R6
+R7
+!i113 1
+R8
 vcameraRead
-Z4 !s110 1745508578
+Z9 !s110 1745508578
 !i10b 1
 !s100 zIfjYnN8AJPR^634;LNSj2
 ImihW==KgR3IKTI8eAo1Vg2
-R1
-Z5 dC:/Users/ntkhi/Desktop/DATN/Implement/sim
+R2
+R3
 w1744759812
 8../src/cameraRead.v
 F../src/cameraRead.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-Z6 !s108 1745508578.000000
-Z7 !s107 ../src/cameraRead.v|camRead_tb.v|
-Z8 !s90 camRead_tb.v|../src/cameraRead.v|
+Z10 !s108 1745508578.000000
+Z11 !s107 ../src/cameraRead.v|camRead_tb.v|
+Z12 !s90 camRead_tb.v|../src/cameraRead.v|
 !i113 1
-R3
+R8
 ncamera@read
 vcamRead_tb
-R4
+R9
 !i10b 1
 !s100 7U:SC>EH_SHJ?^LP4HZ1T0
 I>4>VQmgW4O@cFE:RYdIgB2
-R1
-R5
-w1745508572
-Z9 8camRead_tb.v
-Z10 FcamRead_tb.v
-L0 2
 R2
+R3
+w1745508572
+Z13 8camRead_tb.v
+Z14 FcamRead_tb.v
+L0 2
+R4
 r1
 !s85 0
 31
-R6
-R7
-R8
+R10
+R11
+R12
 !i113 1
-R3
+R8
 ncam@read_tb
 vcontrolWriteToFifo
-Z11 !s110 1745512217
+Z15 !s110 1745512217
 !i10b 1
 !s100 V7C`NLQXgjP6?8gUeTX?X2
 I5NePG]=AfceFRXnT9EzZm3
-R1
-R5
+R2
+R3
 w1745510313
 8..\src\controlWriteToFifo.v
 F..\src\controlWriteToFifo.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-Z12 !s108 1745512217.000000
-Z13 !s107 ..\src\controlWriteToFifo.v|.\controlWriteToFifo_tb.v|
-Z14 !s90 .\controlWriteToFifo_tb.v|..\src\controlWriteToFifo.v|
+Z16 !s108 1745512217.000000
+Z17 !s107 ..\src\controlWriteToFifo.v|.\controlWriteToFifo_tb.v|
+Z18 !s90 .\controlWriteToFifo_tb.v|..\src\controlWriteToFifo.v|
 !i113 1
-R3
+R8
 ncontrol@write@to@fifo
 vcontrolWriteToFifo_tb
-R11
+R15
 !i10b 1
 !s100 [Wn>>UnZA;o<W:IW0dFEl0
 I<03GU?H3joNG26RmMAZEg2
-R1
-R5
+R2
+R3
 w1745512201
 8.\controlWriteToFifo_tb.v
 F.\controlWriteToFifo_tb.v
 L0 2
-R2
+R4
 r1
 !s85 0
 31
-R12
-R13
-R14
+R16
+R17
+R18
 !i113 1
-R3
+R8
 ncontrol@write@to@fifo_tb
 vconv
-Z15 !s110 1745753341
+Z19 !s110 1745753341
 !i10b 1
 !s100 6X:DGD3C[]1[gSLKG4G7K3
 IH_ainTjP0F>2D;@Re5c0?0
-R1
-R5
-Z16 w1742875868
-Z17 8..\src\conv.v
-Z18 F..\src\conv.v
-L0 1
 R2
+R3
+Z20 w1742875868
+Z21 8..\src\conv.v
+Z22 F..\src\conv.v
+L0 1
+R4
 r1
 !s85 0
 31
-Z19 !s108 1745753341.000000
-Z20 !s107 ..\src\plus9Para.v|..\src\mux2to1.v|..\src\conv.v|.\conv_tb.v|
-Z21 !s90 .\conv_tb.v|..\src\conv.v|..\src\mux2to1.v|..\src\plus9Para.v|
+Z23 !s108 1745753341.000000
+Z24 !s107 ..\src\plus9Para.v|..\src\mux2to1.v|..\src\conv.v|.\conv_tb.v|
+Z25 !s90 .\conv_tb.v|..\src\conv.v|..\src\mux2to1.v|..\src\plus9Para.v|
 !i113 1
-R3
+R8
 vconv_tb
-R15
+R19
 !i10b 1
 !s100 b2?lKNnkKDj8=TG[W<_<I3
 IZkP7K:[IXalkcZVin?ffa0
-R1
-R5
+R2
+R3
 w1745753337
 8.\conv_tb.v
 F.\conv_tb.v
 L0 2
-R2
+R4
 r1
 !s85 0
 31
-R19
-R20
-R21
+R23
+R24
+R25
 !i113 1
-R3
+R8
 vcoreConv
 !s110 1743449090
 !i10b 1
 !s100 BmQ;>b3aFdh]dTMHSBfMa3
 I=gVbog1f2Q@N02Ze]6A6;0
-R1
+R2
 R0
 w1743442489
 8..\src\coreConv.v
 F..\src\coreConv.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-Z22 !s108 1743449089.000000
-Z23 !s107 ..\src\coreConv.v|..\src\mux2to1.v|..\src\plus9Para.v|..\src\multi.v|..\src\conv.v|.\conv_tb.v|
-Z24 !s90 .\conv_tb.v|..\src\conv.v|..\src\multi.v|..\src\plus9Para.v|..\src\mux2to1.v|..\src\coreConv.v|
+Z26 !s108 1743449089.000000
+Z27 !s107 ..\src\coreConv.v|..\src\mux2to1.v|..\src\plus9Para.v|..\src\multi.v|..\src\conv.v|.\conv_tb.v|
+Z28 !s90 .\conv_tb.v|..\src\conv.v|..\src\multi.v|..\src\plus9Para.v|..\src\mux2to1.v|..\src\coreConv.v|
 !i113 1
-R3
+R8
 ncore@conv
 vfetchingControl
-Z25 !s110 1745514163
+Z29 !s110 1745514163
 !i10b 1
 !s100 Yk:lbcBPzLeHGd2mhDZgG3
 I5^_G6C@oQI1iM:nfbW6hn3
-R1
-R5
+R2
+R3
 w1744586117
 8..\src\fetchingControl.v
 F..\src\fetchingControl.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-Z26 !s108 1745514163.000000
-Z27 !s107 ..\src\fetchingControl.v|.\fetchingControl_tb.v|
-Z28 !s90 .\fetchingControl_tb.v|..\src\fetchingControl.v|
+Z30 !s108 1745514163.000000
+Z31 !s107 ..\src\fetchingControl.v|.\fetchingControl_tb.v|
+Z32 !s90 .\fetchingControl_tb.v|..\src\fetchingControl.v|
 !i113 1
-R3
+R8
 nfetching@control
 vfetchingControl_tb
-R25
+R29
 !i10b 1
 !s100 ?SaKYUJO=H=POiI5`nDQ=3
 I5eMSJXk3kSaXXjNYB?HAo2
-R1
-R5
+R2
+R3
 w1745514160
 8.\fetchingControl_tb.v
 F.\fetchingControl_tb.v
 L0 2
-R2
-r1
-!s85 0
-31
-R26
-R27
-R28
-!i113 1
-R3
-nfetching@control_tb
-vmasterControl
-Z29 !s110 1745753889
-!i10b 1
-!s100 BI5ZGa4cce]fMngV^AjHz1
-Ij`^J5O?Ph:U<E2hOge02O1
-R1
-R5
-w1745696152
-8..\src\masterControl.v
-F..\src\masterControl.v
-L0 1
-R2
-r1
-!s85 0
-31
-Z30 !s108 1745753889.000000
-Z31 !s107 ..\src\masterControl.v|.\masterControl_tb.v|
-Z32 !s90 .\masterControl_tb.v|..\src\masterControl.v|
-!i113 1
-R3
-nmaster@control
-vmasterControl_tb
-R29
-!i10b 1
-!s100 ji5YNV8SbdFDbSCJmh3[c1
-I@_Ve6m@Ejg65`NzjGgGh[3
-R1
-R5
-w1745753877
-8.\masterControl_tb.v
-F.\masterControl_tb.v
-L0 2
-R2
+R4
 r1
 !s85 0
 31
@@ -255,206 +233,164 @@ R30
 R31
 R32
 !i113 1
+R8
+nfetching@control_tb
+vmasterControl
+Z33 !s110 1745753889
+!i10b 1
+!s100 BI5ZGa4cce]fMngV^AjHz1
+Ij`^J5O?Ph:U<E2hOge02O1
+R2
 R3
+w1745696152
+8..\src\masterControl.v
+F..\src\masterControl.v
+L0 1
+R4
+r1
+!s85 0
+31
+Z34 !s108 1745753889.000000
+Z35 !s107 ..\src\masterControl.v|.\masterControl_tb.v|
+Z36 !s90 .\masterControl_tb.v|..\src\masterControl.v|
+!i113 1
+R8
+nmaster@control
+vmasterControl_tb
+R33
+!i10b 1
+!s100 ji5YNV8SbdFDbSCJmh3[c1
+I@_Ve6m@Ejg65`NzjGgGh[3
+R2
+R3
+w1745753877
+8.\masterControl_tb.v
+F.\masterControl_tb.v
+L0 2
+R4
+r1
+!s85 0
+31
+R34
+R35
+R36
+!i113 1
+R8
 nmaster@control_tb
 vmulti
 !s110 1743449089
 !i10b 1
 !s100 8ff;T:ECV>BXg?@=]UOec3
 I1]1DYfM670<dQGY;ImkRi2
-R1
+R2
 R0
 w1743340407
 8..\src\multi.v
 F..\src\multi.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-R22
-R23
-R24
+R26
+R27
+R28
 !i113 1
-R3
+R8
 vmux2to1
-Z33 !s110 1745753342
+Z37 !s110 1745753342
 !i10b 1
 !s100 gjSEn>=GMk`SblEL8EFeK1
 In15ofcK__Tk[8dVLE1eBK0
-R1
-R5
+R2
+R3
 w1742734589
 8..\src\mux2to1.v
 F..\src\mux2to1.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-R19
-R20
-R21
+R23
+R24
+R25
 !i113 1
-R3
+R8
 vplus3para
-R33
+R37
 !i10b 1
 !s100 :hAUoaXd]g>`PWfc:H?Hc1
 I`]:?]kn5CfKaWih0I4<Lg3
-R1
-R5
-R16
-R17
-R18
-L0 28
 R2
+R3
+R20
+R21
+R22
+L0 28
+R4
 r1
 !s85 0
 31
-R19
-R20
-R21
+R23
+R24
+R25
 !i113 1
-R3
+R8
 vplus9Para
-R33
+R37
 !i10b 1
 !s100 `D7PcY=33;PF5Zlf4J6b`1
 IRl;kTUl[Nn^0BjCm21[170
-R1
-R5
+R2
+R3
 w1743442470
 8..\src\plus9Para.v
 F..\src\plus9Para.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-R19
-R20
-R21
+R23
+R24
+R25
 !i113 1
-R3
+R8
 nplus9@para
 vramControl
-Z34 !s110 1744481980
+Z38 !s110 1744481980
 !i10b 1
 !s100 _?OH@n102GbFDRRU:dGb43
 I@kb@=DYCo]FQ4B@hIm[K^3
-R1
+R2
 R0
 w1744479059
 8..\src\ramControl.v
 F..\src\ramControl.v
 L0 1
-R2
+R4
 r1
 !s85 0
 31
-Z35 !s108 1744481979.000000
-Z36 !s107 ..\src\ramConv.v|..\src\ramControl.v|.\ramControl_tb.v|
-Z37 !s90 .\ramControl_tb.v|..\src\ramControl.v|..\src\ramConv.v|
+Z39 !s108 1744481979.000000
+Z40 !s107 ..\src\ramConv.v|..\src\ramControl.v|.\ramControl_tb.v|
+Z41 !s90 .\ramControl_tb.v|..\src\ramControl.v|..\src\ramConv.v|
 !i113 1
-R3
+R8
 nram@control
 vramControl_tb
-R34
+R38
 !i10b 1
 !s100 `WBa<kS@R2mdja_ElSFQ[1
 I_;1o=Vc;K`OoikBc;m[oD3
-R1
+R2
 R0
 w1744481977
 8.\ramControl_tb.v
 F.\ramControl_tb.v
 L0 3
-R2
-r1
-!s85 0
-31
-R35
-R36
-R37
-!i113 1
-R3
-nram@control_tb
-vramConv
-R34
-!i10b 1
-!s100 06Q4D1oP[]Jifh^AUR7Vk3
-Iz19CaEadORUAiL<@`QP=K2
-R1
-R0
-w1744474176
-8..\src\ramConv.v
-F..\src\ramConv.v
-L0 58
-R2
-r1
-!s85 0
-31
-R35
-R36
-R37
-!i113 1
-R3
-nram@conv
-vtb_cameraRead
-!s110 1745506884
-!i10b 1
-!s100 ZoA^UhI?UamDdh@Yc>hN<3
-I_12=[Z:YEZL86:zDajcEF2
-R1
-R5
-w1745506785
-R9
-R10
-L0 1
-R2
-r1
-!s85 0
-31
-!s108 1745506884.000000
-R7
-R8
-!i113 1
-R3
-ntb_camera@read
-vwriteBackControl
-Z38 !s110 1745516483
-!i10b 1
-!s100 ?8N4Gi6QbAXoTHOUf>]P?3
-I>EF<6jG86iQY:I0zMldeS3
-R1
-R5
-w1744588205
-8..\src\writeBackControl.v
-F..\src\writeBackControl.v
-L0 1
-R2
-r1
-!s85 0
-31
-Z39 !s108 1745516483.000000
-Z40 !s107 ..\src\writeBackControl.v|.\writeBackControl_tb.v|
-Z41 !s90 .\writeBackControl_tb.v|..\src\writeBackControl.v|
-!i113 1
-R3
-nwrite@back@control
-vwriteBackControl_tb
-R38
-!i10b 1
-!s100 YFO@7QOH^[H]cTP;CE<9k3
-IkYNWD1b^@fC_Aa_?G>C8a3
-R1
-R5
-w1745516478
-8.\writeBackControl_tb.v
-F.\writeBackControl_tb.v
-L0 1
-R2
+R4
 r1
 !s85 0
 31
@@ -462,5 +398,89 @@ R39
 R40
 R41
 !i113 1
+R8
+nram@control_tb
+vramConv
+R38
+!i10b 1
+!s100 06Q4D1oP[]Jifh^AUR7Vk3
+Iz19CaEadORUAiL<@`QP=K2
+R2
+R0
+w1744474176
+8..\src\ramConv.v
+F..\src\ramConv.v
+L0 58
+R4
+r1
+!s85 0
+31
+R39
+R40
+R41
+!i113 1
+R8
+nram@conv
+vtb_cameraRead
+!s110 1745506884
+!i10b 1
+!s100 ZoA^UhI?UamDdh@Yc>hN<3
+I_12=[Z:YEZL86:zDajcEF2
+R2
 R3
+w1745506785
+R13
+R14
+L0 1
+R4
+r1
+!s85 0
+31
+!s108 1745506884.000000
+R11
+R12
+!i113 1
+R8
+ntb_camera@read
+vwriteBackControl
+Z42 !s110 1745516483
+!i10b 1
+!s100 ?8N4Gi6QbAXoTHOUf>]P?3
+I>EF<6jG86iQY:I0zMldeS3
+R2
+R3
+w1744588205
+8..\src\writeBackControl.v
+F..\src\writeBackControl.v
+L0 1
+R4
+r1
+!s85 0
+31
+Z43 !s108 1745516483.000000
+Z44 !s107 ..\src\writeBackControl.v|.\writeBackControl_tb.v|
+Z45 !s90 .\writeBackControl_tb.v|..\src\writeBackControl.v|
+!i113 1
+R8
+nwrite@back@control
+vwriteBackControl_tb
+R42
+!i10b 1
+!s100 YFO@7QOH^[H]cTP;CE<9k3
+IkYNWD1b^@fC_Aa_?G>C8a3
+R2
+R3
+w1745516478
+8.\writeBackControl_tb.v
+F.\writeBackControl_tb.v
+L0 1
+R4
+r1
+!s85 0
+31
+R43
+R44
+R45
+!i113 1
+R8
 nwrite@back@control_tb

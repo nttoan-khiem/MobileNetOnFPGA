@@ -1,5 +1,5 @@
 
-State Machine - |masterControl|state_q
+State Machine - |top|masterControl:masterControlBlock|state_q
 Name state_q.update3 state_q.waitDoneAve state_q.average state_q.waitDoneFet3 state_q.fet3 state_q.update2 state_q.waitDoneWriteBack2 state_q.writeBack2 state_q.waitDoneConv1 state_q.convolution1 state_q.waitDoneFet2 state_q.fet2 state_q.update1 state_q.waitDoneWriteBack1 state_q.writeBack1 state_q.waitDoneConv0 state_q.convolution0 state_q.waitDoneFet1 state_q.fet1 state_q.waitDoneCam state_q.startCam state_q.idle 
 state_q.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 state_q.startCam 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
@@ -23,3 +23,187 @@ state_q.waitDoneFet3 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 state_q.average 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 state_q.waitDoneAve 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
 state_q.update3 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|writeBackControl:writeBackControlBlock|state_q
+Name state_q.finish state_q.update state_q.waitDone2 state_q.setSdram2 state_q.waitDone1 state_q.setSdram1 state_q.waitDone0 state_q.setSdram0 state_q.setRam state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 
+state_q.setRam 0 0 0 0 0 0 0 0 1 1 
+state_q.setSdram0 0 0 0 0 0 0 0 1 0 1 
+state_q.waitDone0 0 0 0 0 0 0 1 0 0 1 
+state_q.setSdram1 0 0 0 0 0 1 0 0 0 1 
+state_q.waitDone1 0 0 0 0 1 0 0 0 0 1 
+state_q.setSdram2 0 0 0 1 0 0 0 0 0 1 
+state_q.waitDone2 0 0 1 0 0 0 0 0 0 1 
+state_q.update 0 1 0 0 0 0 0 0 0 1 
+state_q.finish 1 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|ramControl:destinationRam2Block|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|ramControl:destinationRam1Block|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|ramControl:destinationRam0Block|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|averageControl:averageControlBlock|state_q
+Name state_q.finish state_q.update state_q.writeAdd state_q.waitDone state_q.setAddr state_q.buffer state_q.reset state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 
+state_q.reset 0 0 0 0 0 0 1 1 
+state_q.buffer 0 0 0 0 0 1 0 1 
+state_q.setAddr 0 0 0 0 1 0 0 1 
+state_q.waitDone 0 0 0 1 0 0 0 1 
+state_q.writeAdd 0 0 1 0 0 0 0 1 
+state_q.update 0 1 0 0 0 0 0 1 
+state_q.finish 1 0 0 0 0 0 0 1 
+
+State Machine - |top|ramControl:sourceRam2Block|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|ramControl:sourceRam1Block|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|ramControl:sourceRam0Block|state_q
+Name state_q.buffer state_q.load8 state_q.load7 state_q.load6 state_q.load5 state_q.load4 state_q.load3 state_q.load2 state_q.load1 state_q.load0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 
+state_q.load0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.load1 0 0 0 0 0 0 0 0 1 0 1 
+state_q.load2 0 0 0 0 0 0 0 1 0 0 1 
+state_q.load3 0 0 0 0 0 0 1 0 0 0 1 
+state_q.load4 0 0 0 0 0 1 0 0 0 0 1 
+state_q.load5 0 0 0 0 1 0 0 0 0 0 1 
+state_q.load6 0 0 0 1 0 0 0 0 0 0 1 
+state_q.load7 0 0 1 0 0 0 0 0 0 0 1 
+state_q.load8 0 1 0 0 0 0 0 0 0 0 1 
+state_q.buffer 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|fetchingControl:fetchingControlBlock|state_q
+Name state_q.finish state_q.update state_q.setRam2 state_q.waitSdram2 state_q.setSdram2 state_q.setRam1 state_q.waitSdram1 state_q.setSdram1 state_q.setRam0 state_q.waitSdram0 state_q.setSdram0 state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 0 
+state_q.setSdram0 0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.waitSdram0 0 0 0 0 0 0 0 0 0 1 0 1 
+state_q.setRam0 0 0 0 0 0 0 0 0 1 0 0 1 
+state_q.setSdram1 0 0 0 0 0 0 0 1 0 0 0 1 
+state_q.waitSdram1 0 0 0 0 0 0 1 0 0 0 0 1 
+state_q.setRam1 0 0 0 0 0 1 0 0 0 0 0 1 
+state_q.setSdram2 0 0 0 0 1 0 0 0 0 0 0 1 
+state_q.waitSdram2 0 0 0 1 0 0 0 0 0 0 0 1 
+state_q.setRam2 0 0 1 0 0 0 0 0 0 0 0 1 
+state_q.update 0 1 0 0 0 0 0 0 0 0 0 1 
+state_q.finish 1 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|storeCamControl:controlStoreToSdramBlock|state_q
+Name state_q.finish state_q.update state_q.wait2 state_q.setBlue state_q.wait1 state_q.setGreen state_q.wait0 state_q.setRed state_q.readFifo1 state_q.readFifo0 state_q.suspend state_q.start state_q.idle 
+state_q.idle 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state_q.start 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state_q.suspend 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state_q.readFifo0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state_q.readFifo1 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state_q.setRed 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state_q.wait0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state_q.setGreen 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state_q.wait1 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state_q.setBlue 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state_q.wait2 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state_q.update 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state_q.finish 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|controlWriteToFifo:controlWriteFifoBlock|state_q
+Name state_q.idle state_q.finish state_q.process 
+state_q.idle 0 0 0 
+state_q.process 1 0 1 
+state_q.finish 1 1 0 
+
+State Machine - |top|camera_configure:camera_configure_0|SCCB_interface:SCCB1|FSM_return_state
+Name FSM_return_state.FSM_DONE FSM_return_state.FSM_END_SIGNAL_4 FSM_return_state.FSM_END_SIGNAL_3 FSM_return_state.FSM_END_SIGNAL_2 FSM_return_state.FSM_TX_BYTE_4 FSM_return_state.FSM_TX_BYTE_3 FSM_return_state.FSM_TX_BYTE_2 FSM_return_state.FSM_LOAD_BYTE FSM_return_state.0000 
+FSM_return_state.0000 0 0 0 0 0 0 0 0 0 
+FSM_return_state.FSM_LOAD_BYTE 0 0 0 0 0 0 0 1 1 
+FSM_return_state.FSM_TX_BYTE_2 0 0 0 0 0 0 1 0 1 
+FSM_return_state.FSM_TX_BYTE_3 0 0 0 0 0 1 0 0 1 
+FSM_return_state.FSM_TX_BYTE_4 0 0 0 0 1 0 0 0 1 
+FSM_return_state.FSM_END_SIGNAL_2 0 0 0 1 0 0 0 0 1 
+FSM_return_state.FSM_END_SIGNAL_3 0 0 1 0 0 0 0 0 1 
+FSM_return_state.FSM_END_SIGNAL_4 0 1 0 0 0 0 0 0 1 
+FSM_return_state.FSM_DONE 1 0 0 0 0 0 0 0 1 
+
+State Machine - |top|camera_configure:camera_configure_0|SCCB_interface:SCCB1|FSM_state
+Name FSM_state.FSM_TIMER FSM_state.FSM_DONE FSM_state.FSM_END_SIGNAL_4 FSM_state.FSM_END_SIGNAL_3 FSM_state.FSM_END_SIGNAL_2 FSM_state.FSM_END_SIGNAL_1 FSM_state.FSM_TX_BYTE_4 FSM_state.FSM_TX_BYTE_3 FSM_state.FSM_TX_BYTE_2 FSM_state.FSM_TX_BYTE_1 FSM_state.FSM_LOAD_BYTE FSM_state.FSM_START_SIGNAL FSM_state.0000 
+FSM_state.0000 0 0 0 0 0 0 0 0 0 0 0 0 0 
+FSM_state.FSM_START_SIGNAL 0 0 0 0 0 0 0 0 0 0 0 1 1 
+FSM_state.FSM_LOAD_BYTE 0 0 0 0 0 0 0 0 0 0 1 0 1 
+FSM_state.FSM_TX_BYTE_1 0 0 0 0 0 0 0 0 0 1 0 0 1 
+FSM_state.FSM_TX_BYTE_2 0 0 0 0 0 0 0 0 1 0 0 0 1 
+FSM_state.FSM_TX_BYTE_3 0 0 0 0 0 0 0 1 0 0 0 0 1 
+FSM_state.FSM_TX_BYTE_4 0 0 0 0 0 0 1 0 0 0 0 0 1 
+FSM_state.FSM_END_SIGNAL_1 0 0 0 0 0 1 0 0 0 0 0 0 1 
+FSM_state.FSM_END_SIGNAL_2 0 0 0 0 1 0 0 0 0 0 0 0 1 
+FSM_state.FSM_END_SIGNAL_3 0 0 0 1 0 0 0 0 0 0 0 0 1 
+FSM_state.FSM_END_SIGNAL_4 0 0 1 0 0 0 0 0 0 0 0 0 1 
+FSM_state.FSM_DONE 0 1 0 0 0 0 0 0 0 0 0 0 1 
+FSM_state.FSM_TIMER 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |top|camera_configure:camera_configure_0|OV7670_config:config_1|FSM_return_state
+Name 
+FSM_return_state.FSM_SEND_CMD 
+
+State Machine - |top|camera_configure:camera_configure_0|OV7670_config:config_1|FSM_state
+Name FSM_state.FSM_TIMER FSM_state.FSM_DONE FSM_state.FSM_SEND_CMD FSM_state.FSM_IDLE 
+FSM_state.FSM_IDLE 0 0 0 0 
+FSM_state.FSM_SEND_CMD 0 0 1 1 
+FSM_state.FSM_DONE 0 1 0 1 
+FSM_state.FSM_TIMER 1 0 0 1 

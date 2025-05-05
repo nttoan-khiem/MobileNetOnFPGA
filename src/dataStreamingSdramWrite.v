@@ -8,7 +8,7 @@ module dataSteamingSdramWrite(
     input i_sel,
     output [15:0] o_data,
     output [18:0] o_addr,
-    output i_enableWrite,
+    output o_enableWrite
 );
 assign o_data = (i_sel) ? i_dataB : i_dataA;
 assign o_addr = (i_sel) ? i_addrB : i_addrA;

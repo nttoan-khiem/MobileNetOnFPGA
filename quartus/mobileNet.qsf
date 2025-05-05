@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE22F17C6
-set_global_assignment -name TOP_LEVEL_ENTITY masterControl
+set_global_assignment -name TOP_LEVEL_ENTITY top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "10:51:15  MARCH 25, 2025"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -49,6 +49,28 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VERILOG_FILE ../src/zeroPadding.v
+set_global_assignment -name VERILOG_FILE ../src/writeBackControl.v
+set_global_assignment -name VERILOG_FILE ../src/top.v
+set_global_assignment -name VERILOG_FILE ../src/storeCamControl.v
+set_global_assignment -name VERILOG_FILE ../src/selDataForWriteBack.v
+set_global_assignment -name VERILOG_FILE ../src/selAddrSourceRam.v
+set_global_assignment -name VERILOG_FILE ../src/SCCB_interface.v
+set_global_assignment -name VERILOG_FILE ../src/paddingControl.v
+set_global_assignment -name VERILOG_FILE ../src/OV7670_config_rom.v
+set_global_assignment -name VERILOG_FILE ../src/OV7670_config.v
+set_global_assignment -name VERILOG_FILE ../src/mask.v
+set_global_assignment -name VERILOG_FILE ../src/fetchingControl.v
+set_global_assignment -name VERILOG_FILE ../src/dataStreamingSdramWrite.v
+set_global_assignment -name VERILOG_FILE ../src/convolutionControl.v
+set_global_assignment -name VERILOG_FILE ../src/controlWriteToFifo.v
+set_global_assignment -name VERILOG_FILE ../src/cameraStartConfig.v
+set_global_assignment -name VERILOG_FILE ../src/cameraRead.v
+set_global_assignment -name VERILOG_FILE ../src/camera_configure.v
+set_global_assignment -name VERILOG_FILE ../src/baseAddrWriteBackDecode.v
+set_global_assignment -name VERILOG_FILE ../src/baseAddrFetDecode.v
+set_global_assignment -name VERILOG_FILE ../src/averageWriteControl.v
+set_global_assignment -name VERILOG_FILE ../src/averageControl.v
 set_global_assignment -name VERILOG_FILE ../src/masterControl.v
 set_global_assignment -name VERILOG_FILE ../src/weightGen.v
 set_global_assignment -name VERILOG_FILE ../src/registerAverage.v
@@ -63,8 +85,9 @@ set_global_assignment -name VERILOG_FILE ../src/multi.v
 set_global_assignment -name VERILOG_FILE ../src/coreConv.v
 set_global_assignment -name VERILOG_FILE ../src/conv.v
 set_global_assignment -name VERILOG_FILE ../src/average.v
+set_global_assignment -name QIP_FILE fifoMem.qip
+set_global_assignment -name QIP_FILE mypll.qip
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name QIP_FILE fifoMem.qip

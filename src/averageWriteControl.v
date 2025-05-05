@@ -1,6 +1,6 @@
 module averageWriteControl(
     input [5:0] i_opcode,
-    output [15:0] o_selWrite
+    output reg [15:0] o_selWrite
 );
 always @(*) begin
     case (i_opcode)
