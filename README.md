@@ -24,7 +24,8 @@ This repository contains the Verilog source code for implementing a simplified M
 ##  Project Overview
 
 MobileNet is a lightweight convolutional neural network designed for efficiency on resource-constrained devices. This project aims to implement a scaled-down version of the MobileNet architecture for classification tasks, targeting the DE0-Nano FPGA platform.
-
+### diagram
+![Diagram of system](./img/FlowDiagram.png)
 Key features:
 - Optimized Verilog modules for CNN components
 - Focus on low memory usage and efficient processing
