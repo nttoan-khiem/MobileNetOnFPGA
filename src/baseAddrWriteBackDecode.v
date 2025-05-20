@@ -176,7 +176,7 @@ always @(*) begin
         end
     endcase
 end
-assign o_baseAddr0 = featureIndex0 *64*64;
-assign o_baseAddr1 = featureIndex1 *64*64;
-assign o_baseAddr2 = featureIndex2 *64*64;
+assign o_baseAddr0 = featureIndex0 *19'd64*19'd64;
+assign o_baseAddr1 = featureIndex1 *19'd64*19'd64;
+assign o_baseAddr2 = featureIndex2 *19'd64*19'd64;
 endmodule

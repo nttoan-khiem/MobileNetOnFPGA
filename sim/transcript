@@ -1,16 +1,44 @@
-# vsim work.average_tb -c -do "run -all; exit" 
-# Start time: 18:05:57 on May 05,2025
-# Loading work.average_tb
-# Loading work.average
+# vsim work.conv_tb -c -do "run -all; exit" 
+# Start time: 13:49:14 on May 06,2025
+# Loading work.conv_tb
+# Loading work.conv
+# Loading work.coreConv
+# Loading work.multi
+# Loading work.plus9Para
+# Loading work.plus3para
+# Loading work.mux2to1
 # run -all
-# -----------------------------------------
-# === TEST 64x64 ACCUMULATION ===
-# PASS: o_data = 8 (Expected 8)
-# -----------------------------------------
-# === TEST 64x64 ACCUMULATION ===
-# PASS: o_data =  206 (Expected 206)
-# -----------------------------------------
-# ** Note: $finish    : ./average_tb.v(82)
-#    Time: 9205 ns  Iteration: 1  Instance: /average_tb
-# End time: 18:05:58 on May 05,2025, Elapsed time: 0:00:01
+# ================CHECK PORT 0===================
+# [Check: PASS] data port 0 corrent data =    43 at time =                   11
+# ================CHECK PORT 1===================
+# [Check: PASS] data port 1 corrent data =   105 at time =                   22
+# ================CHECK PORT 2===================
+# [Check: PASS] data port 2 corrent data =   142 at time =                   33
+# ================CHECK PORT 0===NEGATIVE========
+# [Check: PASS] data port 0 corrent data =   -44 at time =                   44
+# ================CHECK PORT 1===NEGATIVE========
+# [Check: PASS] data port 1 corrent data =  -132 at time =                   55
+# ================CHECK PORT 2===NEGATIVE========
+# [Check: PASS] data port 2 corrent data =   -74 at time =                   66
+# ============CHECK PORT 0 MIXED VALUES=============
+# [Check: PASS] data port 0 corrent data =    30 at time =                   77
+# ============CHECK PORT 1 MAX POSITIVE=============
+# [Check: PASS] data port 1 corrent data =     2 at time =                   88
+# ============CHECK PORT 2 MAX NEGATIVE=============
+# [Check: Fail] data port 2 incorrect data =    -3, but expect =    -2, at time =                   99
+# ============CHECK PORT 0 WITH ZEROS=============
+# [Check: PASS] data port 0 corrent data =     0 at time =                  110
+# ============CHECK PORT 1 MIXED AND ZEROS=============
+# [Check: PASS] data port 1 corrent data =    14 at time =                  121
+# ============CHECK PORT 2 EDGE VALUES=============
+# [Check: Fail] data port 2 incorrect data =     2, but expect =     5, at time =                  132
+# ============CHECK OPCODE 0 SUM ALL PORTS=============
+# [Check: PASS] data port 0 corrent data =   290 at time =                  143
+# ============CHECK OPCODE 0 NEGATIVE SUM=============
+# [Check: PASS] data port 0 corrent data =  -250 at time =                  154
+# ============CHECK OPCODE 0 MIXED VALUES=============
+# [Check: PASS] data port 0 corrent data =    46 at time =                  165
+# ** Note: $finish    : ./conv_tb.v(246)
+#    Time: 165 ps  Iteration: 0  Instance: /conv_tb
+# End time: 13:49:14 on May 06,2025, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

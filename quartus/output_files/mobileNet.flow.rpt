@@ -1,5 +1,5 @@
 Flow report for mobileNet
-Sat May 03 23:19:48 2025
+Tue May 13 08:36:48 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,20 +40,20 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Sat May 03 23:19:35 2025       ;
+; Flow Status                        ; Successful - Tue May 13 08:36:36 2025       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; mobileNet                                   ;
 ; Top-level Entity Name              ; top                                         ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 2,886 / 22,320 ( 13 % )                     ;
-;     Total combinational functions  ; 2,783 / 22,320 ( 12 % )                     ;
-;     Dedicated logic registers      ; 741 / 22,320 ( 3 % )                        ;
-; Total registers                    ; 741                                         ;
+; Total logic elements               ; 4,376 / 22,320 ( 20 % )                     ;
+;     Total combinational functions  ; 4,171 / 22,320 ( 19 % )                     ;
+;     Dedicated logic registers      ; 1,028 / 22,320 ( 5 % )                      ;
+; Total registers                    ; 1028                                        ;
 ; Total pins                         ; 58 / 154 ( 38 % )                           ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 126,976 / 608,256 ( 21 % )                  ;
+; Total memory bits                  ; 249,856 / 608,256 ( 41 % )                  ;
 ; Embedded Multiplier 9-bit elements ; 42 / 132 ( 32 % )                           ;
 ; Total PLLs                         ; 1 / 4 ( 25 % )                              ;
 +------------------------------------+---------------------------------------------+
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 05/03/2025 23:17:28 ;
+; Start date & time ; 05/13/2025 08:33:58 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; mobileNet           ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 27332939166419.174628904802548         ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 27332939166419.174710003802512         ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; MISC_FILE                           ; fifoMem_bb.v                           ; --            ; --          ; --         ;
@@ -97,11 +97,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:47     ; 1.0                     ; 4792 MB             ; 00:01:03                           ;
-; Fitter               ; 00:01:04     ; 1.1                     ; 5375 MB             ; 00:00:56                           ;
-; Assembler            ; 00:00:04     ; 1.0                     ; 4683 MB             ; 00:00:02                           ;
-; Timing Analyzer      ; 00:00:11     ; 1.3                     ; 4795 MB             ; 00:00:09                           ;
-; Total                ; 00:02:06     ; --                      ; --                  ; 00:02:10                           ;
+; Analysis & Synthesis ; 00:01:09     ; 1.0                     ; 4815 MB             ; 00:01:14                           ;
+; Fitter               ; 00:01:11     ; 1.0                     ; 5383 MB             ; 00:01:09                           ;
+; Assembler            ; 00:00:05     ; 1.0                     ; 4689 MB             ; 00:00:03                           ;
+; Timing Analyzer      ; 00:00:10     ; 1.2                     ; 4808 MB             ; 00:00:08                           ;
+; Total                ; 00:02:35     ; --                      ; --                  ; 00:02:34                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

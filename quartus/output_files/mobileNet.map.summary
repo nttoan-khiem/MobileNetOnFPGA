@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Successful - Sat May 03 23:18:19 2025
+Analysis & Synthesis Status : Successful - Tue May 13 08:35:10 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : mobileNet
 Top-level Entity Name : top
 Family : Cyclone IV E
-Total logic elements : 3,117
-    Total combinational functions : 2,783
-    Dedicated logic registers : 741
-Total registers : 741
+Total logic elements : 4,726
+    Total combinational functions : 4,171
+    Dedicated logic registers : 1,028
+Total registers : 1028
 Total pins : 58
 Total virtual pins : 0
-Total memory bits : 126,976
+Total memory bits : 249,856
 Embedded Multiplier 9-bit elements : 42
 Total PLLs : 1

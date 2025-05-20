@@ -1,9 +1,11 @@
 module coreConv(
     input [89:0] i_data,
     input [89:0] i_weight,
+    output [19:0] o_data20,
     output [9:0] o_data
 );
 //internal wire
+wire [19:0] dataTemp;
 //i_data de_Bus
 wire [9:0] data [8:0];
 assign data[0] = i_data[9:0];
@@ -48,6 +50,8 @@ plus9Para adder9paraBlock(  .i_data0(resultMulti[0]),
                             .i_data6(resultMulti[6]), 
                             .i_data7(resultMulti[7]), 
                             .i_data8(resultMulti[8]), 
-                            .o_data(o_data)
+                            .o_data(dataTemp)
                         );
+assign o_data = dataTemp[18:9];
+assign o_data20 = dataTemp;
 endmodule

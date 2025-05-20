@@ -146,6 +146,7 @@ always @(*) begin  //combitional ciucirt control state machine.
             state_d = idle;
             o_finish = 1;
             o_addrToSdram = 19'd0;
+            o_wrSdram = 0;
             addrLocal_d = 19'd0;
             o_quickRam = 0;
             o_selData = 2'd0;
@@ -154,6 +155,7 @@ always @(*) begin  //combitional ciucirt control state machine.
             state_d = idle;
             o_finish = 0;
             o_addrToSdram = 19'd0;
+            o_wrSdram = 0;
             addrLocal_d = 19'd0;
             o_quickRam = 0;
             o_selData = 2'd0;

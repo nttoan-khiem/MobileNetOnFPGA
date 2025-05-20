@@ -144,6 +144,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "led",
+					"strict" : false
+				},
+				{
 					"name" : "i_reset",
 					"strict" : false
 				},
@@ -152,11 +156,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "i_vsync",
+					"name" : "i_href",
 					"strict" : false
 				},
 				{
-					"name" : "i_href",
+					"name" : "i_vsync",
 					"strict" : false
 				}
 			]

@@ -25,9 +25,9 @@ module fullyConnected (
     wire [9:0] in_data15 = i_data[159:150];
 
     // Weights
-    reg signed [15:0] w0, w1, w2, w3, w4, w5, w6, w7;
-    reg signed [15:0] w8, w9, w10, w11, w12, w13, w14, w15;
-    reg signed [15:0] w_bias;
+    reg signed [15:0] w0 = 16'd8, w1 = 16'd5, w2 = 16'd172, w3 = -16'd12, w4 = -16'd522, w5 = 16'd232, w6 = 16'd82, w7 = -16'd23;
+    reg signed [15:0] w8 = 16'd23, w9 = 16'd72, w10 = -16'd12, w11 = -16'd82, w12 = 16'd7, w13 = 16'd8, w14 = 16'd19, w15 = 16'd234;
+    reg signed [15:0] w_bias = 16'd238;
 
     // Sequential multiply-accumulate using pairing
     reg signed [31:0] sum;

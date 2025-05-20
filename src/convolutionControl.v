@@ -39,8 +39,8 @@ reg [11:0] addrRead8;
 //-----
 always @(posedge i_clk or negedge i_reset) begin
     if(!i_reset) begin 
-        state_q <= state_d;
-        addrLocal_q <= addrLocal_d;
+        state_q <= idle;
+        addrLocal_q <= 12'd0;
     end else begin 
         state_q <= state_d;
         addrLocal_q <= addrLocal_d;

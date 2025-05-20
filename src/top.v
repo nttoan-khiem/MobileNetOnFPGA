@@ -53,6 +53,7 @@ camera_configure #(.CLK_FREQ ( 24000000 )) camera_configure_0
 //--------------------read-cam-------------------
 wire [15:0] dataPixelFromCam;
 wire sdramBusy;
+wire sdramReady;
 assign sdramReady = ~sdramBusy;
 wire pixelValidCam;
 wire [9:0] o_xIndex, o_yIndex;
@@ -69,7 +70,6 @@ wire [18:0] addressToSdram;
 wire rdClkFifo;
 wire enableWrSdram;
 wire flagFinish_StCam;
-wire sdramReady;
 wire startStCam;
 assign o_clkCam = i_clk24; //supply clock for camera 24Mhz
 assign o_camRes = i_reset;  //reset pin camera /active low
@@ -541,9 +541,9 @@ writeBackControl writeBackControlBlock(
 );
 selDataForWriteBack selDataForWriteBackBlock(
     .i_sel(selDataForWriteBack),
-    .i_data0({5'd0, dataOutConv0}),
-    .i_data1({5'd0, dataOutConv1}),
-    .i_data2({5'd0, dataOutConv2}),
+    .i_data0({5'd0, dataOutQuickMode0}),
+    .i_data1({5'd0, dataOutQuickMode1}),
+    .i_data2({5'd0, dataOutQuickMode2}),
     .o_data(dataFromWriteBack)
 );
 //-------------------------Master control------------------------------

@@ -8,7 +8,7 @@ module plus9Para(
     input [19:0] i_data6,
     input [19:0] i_data7,
     input [19:0] i_data8,
-    output [9:0] o_data    
+    output [19:0] o_data    
 );
 //for high perfomance
 //internal wire level 0
@@ -31,5 +31,5 @@ assign data70 = data30 + data74;
 wire [19:0] dataTemp;
 assign dataTemp = data70 + i_data8;
 
-assign o_data = dataTemp[19:10];
+assign o_data = dataTemp;
 endmodule
