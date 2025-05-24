@@ -40,6 +40,10 @@ Key features:
 - Build a foundation for FPGA-based edge AI solutions
 - Make a application to detect traffic jam
 
+##  Result test CNN layer
+
+![Result CNN](./img/result_cnn.png)
+
 ##  Notes
 
 - This project was completed for educational and research purposes.
