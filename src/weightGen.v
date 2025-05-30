@@ -4,203 +4,21 @@ module weightGen(
     output reg [89:0] o_weight1,
     output reg [89:0] o_weight2
 );
+
+//expected to generate ROM
+reg [89:0] weight0 [0:31];
+reg [89:0] weight1 [0:31];
+reg [89:0] weight2 [0:31];
+
+initial begin
+    $readmemh("weight0.hex", weight0);
+    $readmemh("weight1.hex", weight1);
+    $readmemh("weight2.hex", weight2);
+end
+
 always @(*) begin
-    case (i_opcode)
-        6'd0: begin
-        o_weight0 = 90'h28647515897477928427;
-        o_weight1 = 90'h60594996201193271552;
-        o_weight2 = 90'h47266548480648402887;
-        end
-        6'd1: begin
-        o_weight0 = 90'h84915539189998966418;
-        o_weight1 = 90'h35532786778295695909;
-        o_weight2 = 90'h33099077918130773105;
-        end
-        6'd2: begin
-        o_weight0 = 90'h87431982418914463412;
-        o_weight1 = 90'h62640794153306804282;
-        o_weight2 = 90'h92770101868346895834;
-        end
-        6'd3: begin
-        o_weight0 = 90'h10023197260993704268;
-        o_weight1 = 90'h66220067059190821665;
-        o_weight2 = 90'h25905778606457534181;
-        end
-        6'd4: begin
-        o_weight0 = 90'h57041638611310269180;
-        o_weight1 = 90'h31149748031449833884;
-        o_weight2 = 90'h94302871723287072161;
-        end
-        6'd5: begin
-        o_weight0 = 90'h47960925501117460540;
-        o_weight1 = 90'h39427439177933840030;
-        o_weight2 = 90'h81112499580452573516;
-        end
-        6'd6: begin
-        o_weight0 = 90'h15134267944730999757;
-        o_weight1 = 90'h99154159369625758936;
-        o_weight2 = 90'h67784865175293848116;
-        end
-        6'd7: begin
-        o_weight0 = 90'h25563024485690732201;
-        o_weight1 = 90'h92638329549385972376;
-        o_weight2 = 90'h63512102451854805848;
-        end
-        6'd8: begin
-        o_weight0 = 90'h24442385564655258194;
-        o_weight1 = 90'h11695977882004936509;
-        o_weight2 = 90'h18940006278792434371;
-        end
-        6'd9: begin
-        o_weight0 = 90'h97892090868267333541;
-        o_weight1 = 90'h28578118575418151110;
-        o_weight2 = 90'h12442284955752415076;
-        end
-        6'd10: begin
-        o_weight0 = 90'h92519984257157180798;
-        o_weight1 = 90'h89831748063488704444;
-        o_weight2 = 90'h42330312885108666749;
-        end
-        6'd11: begin
-        o_weight0 = 90'h73470094695519525907;
-        o_weight1 = 90'h47041116686168626167;
-        o_weight2 = 90'h23165524082279712564;
-        end
-        6'd12: begin
-        o_weight0 = 90'h78166108018700750491;
-        o_weight1 = 90'h70779738961860729916;
-        o_weight2 = 90'h30756278142405706220;
-        end
-        6'd13: begin
-        o_weight0 = 90'h13928245307459309863;
-        o_weight1 = 90'h34154413087497856343;
-        o_weight2 = 90'h54469032124869518453;
-        end
-        6'd14: begin
-        o_weight0 = 90'h42217120474284117847;
-        o_weight1 = 90'h74074282894196437349;
-        o_weight2 = 90'h95425043747800279100;
-        end
-        6'd15: begin
-        o_weight0 = 90'h99390630359157336113;
-        o_weight1 = 90'h37660796846635172697;
-        o_weight2 = 90'h62290246428233961981;
-        end
-        6'd16: begin
-        o_weight0 = 90'h59129783140131520614;
-        o_weight1 = 90'h39341596858805505803;
-        o_weight2 = 90'h89211656975299177314;
-        end
-        6'd17: begin
-        o_weight0 = 90'h83513276228284731740;
-        o_weight1 = 90'h81603208104997100820;
-        o_weight2 = 90'h98174344482623386755;
-        end
-        6'd18: begin
-        o_weight0 = 90'h93186938934435899178;
-        o_weight1 = 90'h50599438096634498676;
-        o_weight2 = 90'h56395285399003818452;
-        end
-        6'd19: begin
-        o_weight0 = 90'h98480671550278732701;
-        o_weight1 = 90'h58291534600812485361;
-        o_weight2 = 90'h75364125926132123782;
-        end
-        6'd20: begin
-        o_weight0 = 90'h69289642598110044946;
-        o_weight1 = 90'h60045579218753876875;
-        o_weight2 = 90'h80100724939478063001;
-        end
-        6'd21: begin
-        o_weight0 = 90'h89567515678750080332;
-        o_weight1 = 90'h42653681655493099082;
-        o_weight2 = 90'h25885642896605667907;
-        end
-        6'd22: begin
-        o_weight0 = 90'h99926965900228256848;
-        o_weight1 = 90'h93101588273204173706;
-        o_weight2 = 90'h15912935465786267735;
-        end
-        6'd23: begin
-        o_weight0 = 90'h76738263092307113928;
-        o_weight1 = 90'h99246003658538447013;
-        o_weight2 = 90'h40163120452704112129;
-        end
-        6'd24: begin
-        o_weight0 = 90'h72666676858092294409;
-        o_weight1 = 90'h76933695829575269462;
-        o_weight2 = 90'h66655203347448246970;
-        end
-        6'd25: begin
-        o_weight0 = 90'h40397928816329356226;
-        o_weight1 = 90'h39196006914180570387;
-        o_weight2 = 90'h28468372086895055633;
-        end
-        6'd26: begin
-        o_weight0 = 90'h72351774398921385609;
-        o_weight1 = 90'h83397575836994202334;
-        o_weight2 = 90'h29437663130856406155;
-        end
-        6'd27: begin
-        o_weight0 = 90'h10054656262387908244;
-        o_weight1 = 90'h35663197654464126928;
-        o_weight2 = 90'h79039549147133277925;
-        end
-        6'd28: begin
-        o_weight0 = 90'h98190510780650862456;
-        o_weight1 = 90'h37650150469556878132;
-        o_weight2 = 90'h33335533513617589269;
-        end
-        6'd29: begin
-        o_weight0 = 90'h53790669136517167634;
-        o_weight1 = 90'h62283208755029240578;
-        o_weight2 = 90'h37387705374242214365;
-        end
-        6'd30: begin
-        o_weight0 = 90'h78637314952234409170;
-        o_weight1 = 90'h31745479060560710670;
-        o_weight2 = 90'h14757904046910171521;
-        end
-        6'd31: begin
-        o_weight0 = 90'h21606088960290891566;
-        o_weight1 = 90'h79792321256453058365;
-        o_weight2 = 90'h91865001645189091301;
-        end
-        6'd32: begin
-        o_weight0 = 90'h23061106333004313297;
-        o_weight1 = 90'h77730473459823254509;
-        o_weight2 = 90'h61844991816559508527;
-        end
-        6'd33: begin
-        o_weight0 = 90'h34163551782745180016;
-        o_weight1 = 90'h48848477884607510540;
-        o_weight2 = 90'h34471142447794629155;
-        end
-        6'd34: begin
-        o_weight0 = 90'h15966235161282327672;
-        o_weight1 = 90'h32962258838548711372;
-        o_weight2 = 90'h83255523284541496299;
-        end
-        6'd35: begin
-        o_weight0 = 90'h27195655858244146892;
-        o_weight1 = 90'h56390396963838583815;
-        o_weight2 = 90'h74949371495861699081;
-        end
-        6'd36: begin
-        o_weight0 = 90'h33603149180076287316;
-        o_weight1 = 90'h81314097148798337018;
-        o_weight2 = 90'h38787314581987555409;
-        end
-        6'd37: begin
-        o_weight0 = 90'h55586487683777192405;
-        o_weight1 = 90'h43289669156736432285;
-        o_weight2 = 90'h25241410316819854735;
-        end
-        default: begin 
-        o_weight0 = 90'h0;
-        o_weight1 = 90'h0;
-        o_weight2 = 90'h0;
-        end
-    endcase
+    o_weight0 = weight0[i_opcode];
+    o_weight1 = weight1[i_opcode];
+    o_weight2 = weight2[i_opcode];
 end
 endmodule

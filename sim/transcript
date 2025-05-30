@@ -1,44 +1,51 @@
-# vsim work.conv_tb -c -do "run -all; exit" 
-# Start time: 13:49:14 on May 06,2025
-# Loading work.conv_tb
-# Loading work.conv
-# Loading work.coreConv
-# Loading work.multi
-# Loading work.plus9Para
-# Loading work.plus3para
-# Loading work.mux2to1
-# run -all
-# ================CHECK PORT 0===================
-# [Check: PASS] data port 0 corrent data =    43 at time =                   11
-# ================CHECK PORT 1===================
-# [Check: PASS] data port 1 corrent data =   105 at time =                   22
-# ================CHECK PORT 2===================
-# [Check: PASS] data port 2 corrent data =   142 at time =                   33
-# ================CHECK PORT 0===NEGATIVE========
-# [Check: PASS] data port 0 corrent data =   -44 at time =                   44
-# ================CHECK PORT 1===NEGATIVE========
-# [Check: PASS] data port 1 corrent data =  -132 at time =                   55
-# ================CHECK PORT 2===NEGATIVE========
-# [Check: PASS] data port 2 corrent data =   -74 at time =                   66
-# ============CHECK PORT 0 MIXED VALUES=============
-# [Check: PASS] data port 0 corrent data =    30 at time =                   77
-# ============CHECK PORT 1 MAX POSITIVE=============
-# [Check: PASS] data port 1 corrent data =     2 at time =                   88
-# ============CHECK PORT 2 MAX NEGATIVE=============
-# [Check: Fail] data port 2 incorrect data =    -3, but expect =    -2, at time =                   99
-# ============CHECK PORT 0 WITH ZEROS=============
-# [Check: PASS] data port 0 corrent data =     0 at time =                  110
-# ============CHECK PORT 1 MIXED AND ZEROS=============
-# [Check: PASS] data port 1 corrent data =    14 at time =                  121
-# ============CHECK PORT 2 EDGE VALUES=============
-# [Check: Fail] data port 2 incorrect data =     2, but expect =     5, at time =                  132
-# ============CHECK OPCODE 0 SUM ALL PORTS=============
-# [Check: PASS] data port 0 corrent data =   290 at time =                  143
-# ============CHECK OPCODE 0 NEGATIVE SUM=============
-# [Check: PASS] data port 0 corrent data =  -250 at time =                  154
-# ============CHECK OPCODE 0 MIXED VALUES=============
-# [Check: PASS] data port 0 corrent data =    46 at time =                  165
-# ** Note: $finish    : ./conv_tb.v(246)
-#    Time: 165 ps  Iteration: 0  Instance: /conv_tb
-# End time: 13:49:14 on May 06,2025, Elapsed time: 0:00:00
+# vsim work.writeBackControl_tb 
+# Start time: 16:55:16 on May 26,2025
+# Loading work.writeBackControl_tb
+# Loading work.writeBackControl
+add wave -position insertpoint  \
+sim:/writeBackControl_tb/i_clk \
+sim:/writeBackControl_tb/i_reset \
+sim:/writeBackControl_tb/i_sdramReady \
+sim:/writeBackControl_tb/i_start \
+sim:/writeBackControl_tb/i_baseAddr0 \
+sim:/writeBackControl_tb/i_baseAddr1 \
+sim:/writeBackControl_tb/i_baseAddr2 \
+sim:/writeBackControl_tb/o_addrToRam0 \
+sim:/writeBackControl_tb/o_addrToRam1 \
+sim:/writeBackControl_tb/o_addrToRam2 \
+sim:/writeBackControl_tb/o_quickRam \
+sim:/writeBackControl_tb/o_addrToSdram \
+sim:/writeBackControl_tb/o_wrSdram \
+sim:/writeBackControl_tb/o_selData \
+sim:/writeBackControl_tb/o_finish
+run
+# Time=45ns | [read quick RAM0, 1, 2] | at address0 =      0 | addr1 =      0 | addr2 =      0
+# Time=55ns | [write RAM 0 to SDRAM] | at address =      0
+# Time=95ns | [write RAM 1 to SDRAM] | at address =  10000
+# Time=135ns | [write RAM 2 to SDRAM] | at address =  20000
+# Time=185ns | [read quick RAM0, 1, 2] | at address0 =      1 | addr1 =      1 | addr2 =      1
+# Time=195ns | [write RAM 0 to SDRAM] | at address =      1
+# Time=235ns | [write RAM 1 to SDRAM] | at address =  10001
+# Time=275ns | [write RAM 2 to SDRAM] | at address =  20001
+# Time=325ns | [read quick RAM0, 1, 2] | at address0 =      2 | addr1 =      2 | addr2 =      2
+# Time=335ns | [write RAM 0 to SDRAM] | at address =      2
+# Time=375ns | [write RAM 1 to SDRAM] | at address =  10002
+# Time=415ns | [write RAM 2 to SDRAM] | at address =  20002
+# Time=465ns | [read quick RAM0, 1, 2] | at address0 =      3 | addr1 =      3 | addr2 =      3
+# Time=475ns | [write RAM 0 to SDRAM] | at address =      3
+# Time=515ns | [write RAM 1 to SDRAM] | at address =  10003
+# Time=555ns | [write RAM 2 to SDRAM] | at address =  20003
+# Time=605ns | [read quick RAM0, 1, 2] | at address0 =      4 | addr1 =      4 | addr2 =      4
+# Time=615ns | [write RAM 0 to SDRAM] | at address =      4
+# Time=655ns | [write RAM 1 to SDRAM] | at address =  10004
+# Time=695ns | [write RAM 2 to SDRAM] | at address =  20004
+# Time=745ns | [read quick RAM0, 1, 2] | at address0 =      5 | addr1 =      5 | addr2 =      5
+# Time=755ns | [write RAM 0 to SDRAM] | at address =      5
+# Time=795ns | [write RAM 1 to SDRAM] | at address =  10005
+# Time=835ns | [write RAM 2 to SDRAM] | at address =  20005
+# Time=885ns | [read quick RAM0, 1, 2] | at address0 =      6 | addr1 =      6 | addr2 =      6
+# Time=895ns | [write RAM 0 to SDRAM] | at address =      6
+# Time=935ns | [write RAM 1 to SDRAM] | at address =  10006
+# Time=975ns | [write RAM 2 to SDRAM] | at address =  20006
+# End time: 21:01:17 on May 26,2025, Elapsed time: 4:06:01
 # Errors: 0, Warnings: 0

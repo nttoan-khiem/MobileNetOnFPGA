@@ -52,6 +52,6 @@ plus9Para adder9paraBlock(  .i_data0(resultMulti[0]),
                             .i_data8(resultMulti[8]), 
                             .o_data(dataTemp)
                         );
-assign o_data = dataTemp[18:9];
+assign o_data = dataTemp[19] ? 10'd0 : dataTemp[18:9];
 assign o_data20 = dataTemp;
 endmodule

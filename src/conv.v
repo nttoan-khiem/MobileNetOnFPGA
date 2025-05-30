@@ -39,5 +39,5 @@ wire [19:0] dataTemp;
 assign data01 = i_data1 + i_data0;
 //final state
 assign dataTemp = data01 + i_data2;
-assign o_data = dataTemp[18:9];
+assign o_data = dataTemp[19] ? 10'd0 : dataTemp[18:9];
 endmodule

@@ -53,12 +53,13 @@ module camRead_tb();
         begin
             // VSYNC pulse to start the frame
             i_vsync = 1;
-            #80; // Hold VSYNC high for 2 clock cycles
+            #800; // Hold VSYNC high for 2 clock cycles
             i_vsync = 0;
-            #40
+            #500
             // Loop through 320 rows (Y)
             for (row = 0; row < 240; row = row + 1) begin
                 // HREF pulse for one row (240 pixels)
+                @(negedge i_pclk);
                 i_href = 1;
                 // Loop through 240 pixels (X)
                 for (col = 0; col < 320; col = col + 1) begin
@@ -73,7 +74,7 @@ module camRead_tb();
                 // End of row: deassert HREF
                 @(negedge i_pclk);
                 i_href = 0;
-                #400; // Small gap between rows
+                #500; // Small gap between rows
             end
         end
     endtask
